@@ -22,8 +22,10 @@ const iconForNode = (node) => {
 export default function LearningPath({ nodes = [] }) {
   return (
     <div className="learning-path">
-      {nodes.map((node, index) => (
-        <div key={node.id} className={`path-node ${node.type} ${node.status}`}>
+      {nodes.map((node, index) => {
+        const alignment = index % 2 === 0 ? 'left' : 'right'
+        return (
+          <div key={node.id} className={`path-node ${node.type} ${node.status} ${alignment}`}>
           <div className="node-marker">
             <span className="node-icon" aria-hidden>
               {iconForNode(node)}
@@ -50,8 +52,9 @@ export default function LearningPath({ nodes = [] }) {
               ))}
             <p className="node-xp">+{node.rewardXp} XP</p>
           </div>
-        </div>
-      ))}
+          </div>
+        )
+      })}
     </div>
   )
 }

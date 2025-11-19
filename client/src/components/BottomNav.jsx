@@ -2,12 +2,13 @@ import { Link, useLocation } from 'react-router-dom'
 
 const tabs = [
   { id: 'academy', label: 'Academia', to: '/', icon: '📚' },
+  { id: 'missions', label: 'Missões', to: '/missions', icon: '🛰️' },
   { id: 'arena', label: 'Arena', to: '/arena', icon: '⚔️' },
 ]
 
 export default function BottomNav() {
   const location = useLocation()
-  const active = location.pathname.startsWith('/arena') ? 'arena' : 'academy'
+  const active = tabs.find((tab) => (tab.to === '/' ? location.pathname === '/' : location.pathname.startsWith(tab.to)))?.id ?? 'academy'
 
   return (
     <nav className="bottom-nav">

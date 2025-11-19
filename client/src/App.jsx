@@ -1,21 +1,27 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import BottomNav from './components/BottomNav'
+import PlayerHud from './components/PlayerHud'
+import ThemeSwitcher from './components/ThemeSwitcher'
 import { AppDataProvider, useAppData } from './context/AppDataContext'
 import AcademyPage from './pages/AcademyPage'
 import ArenaPage from './pages/ArenaPage'
 import ChallengePage from './pages/ChallengePage'
 import LessonPage from './pages/LessonPage'
+import MissionsPage from './pages/MissionsPage'
 import './App.css'
 
 function AppShell() {
   const { toast } = useAppData()
   return (
     <div className="app-shell">
+      <PlayerHud />
+      <ThemeSwitcher />
       <Routes>
         <Route path="/" element={<AcademyPage />} />
         <Route path="/lesson/:lessonId" element={<LessonPage />} />
         <Route path="/arena" element={<ArenaPage />} />
         <Route path="/arena/:challengeId" element={<ChallengePage />} />
+        <Route path="/missions" element={<MissionsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <BottomNav />

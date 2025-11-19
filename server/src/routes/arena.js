@@ -19,7 +19,8 @@ router.get("/challenges", (req, res) => {
 
 router.post("/challenges/:challengeId/simulate", (req, res) => {
   try {
-    const simulation = simulateChallenge(req.params.challengeId, req.body.code ?? "");
+    const { code = "", params, mods, layout } = req.body;
+    const simulation = simulateChallenge(req.params.challengeId, code, { params, mods, layout });
     return res.json({ simulation });
   } catch (error) {
     return res.status(400).json({ message: error.message });
@@ -28,13 +29,13 @@ router.post("/challenges/:challengeId/simulate", (req, res) => {
 
 router.post("/challenges/:challengeId/submit", (req, res) => {
   try {
-    const { code = "" } = req.body;
+    const { code = "", params, mods, layout } = req.body;
     const challenge = arenaChallenges.find((item) => item.id === req.params.challengeId);
     if (!challenge) {
       return res.status(404).json({ message: "Desafio não encontrado" });
     }
 
-    const simulation = simulateChallenge(challenge.id, code);
+    const simulation = simulateChallenge(challenge.id, code, { params, mods, layout });
     const meetsGoal =
       simulation.resourcesCollected >= challenge.goals.resources &&
       simulation.time <= challenge.goals.maxTime * 1.3;

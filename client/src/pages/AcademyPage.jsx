@@ -4,12 +4,19 @@ import { useAppData } from '../context/AppDataContext'
 
 const MAX_LIVES = 3
 
+const defaultHero = {
+  subtitle: 'Trilha Python · variáveis até if/else',
+  title: 'Fundamentos para IA aplicada',
+  description: 'Domine a base em blocos de 5 minutos e prepare-se para automatizar processos inteiros.',
+}
+
 export default function AcademyPage() {
-  const { academy } = useAppData()
+  const { academy, theme } = useAppData()
   const { path, profile, loading, error, refreshing } = academy
   const lives = profile?.lives ?? MAX_LIVES
   const streak = profile?.streak ?? 1
   const hearts = Array.from({ length: MAX_LIVES })
+  const hero = theme?.selected?.hero?.academy ?? defaultHero
 
   if (loading) {
     return (
@@ -35,9 +42,9 @@ export default function AcademyPage() {
     <section className="page-section">
       <header className="page-hero">
         <div>
-          <p className="subtitle">Trilha Python · variáveis até if/else</p>
-          <h1>Fundamentos para IA aplicada</h1>
-          <p>Domine a base em blocos de 5 minutos e prepare-se para automatizar processos inteiros.</p>
+          <p className="subtitle">{hero.subtitle}</p>
+          <h1>{hero.title}</h1>
+          <p>{hero.description}</p>
         </div>
         <div className="xp-card">
           <p>Total XP</p>

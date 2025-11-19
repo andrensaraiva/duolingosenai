@@ -12,6 +12,7 @@ const formatError = (error) => {
 export function AppDataProvider({ children }) {
   const [academy, setAcademy] = useState({ path: [], profile: null, loading: true, refreshing: false })
   const [arena, setArena] = useState({ challenges: [], loading: true, refreshing: false })
+  const [missions, setMissions] = useState({ rotation: null, catalog: [], loading: true, refreshing: false })
   const [toast, setToast] = useState(null)
   const [automationFarm, setAutomationFarm] = useState({
     isRunning: false,
@@ -21,16 +22,49 @@ export function AppDataProvider({ children }) {
     lastUpdate: null,
     label: '',
   })
+  const [theme, setThemeState] = useState({ selected: null, options: [], loading: true, updating: false, error: null })
+
+  const applyThemeTokens = useCallback((themePayload) => {
+    if (!themePayload?.tokens || typeof document === 'undefined') return
+    const root = document.documentElement
+    if (!root) return
+    Object.entries(themePayload.tokens).forEach(([token, value]) => {
+      root.style.setProperty(`--${token}`, value)
+    })
+    if (document.body) {
+      document.body.dataset.theme = themePayload.id ?? ''
+    }
+  }, [])
+
+  const syncThemeState = useCallback(
+    (selectedTheme, optionsList) => {
+      setThemeState((prev) => ({
+        ...prev,
+        selected: selectedTheme ?? prev.selected,
+        options: optionsList ?? prev.options,
+        loading: false,
+        updating: false,
+        error: null,
+      }))
+      if (selectedTheme) {
+        applyThemeTokens(selectedTheme)
+      }
+    },
+    [applyThemeTokens]
+  )
 
   const fetchAcademy = useCallback(async () => {
     setAcademy((prev) => ({ ...prev, refreshing: true }))
     try {
       const { data } = await api.get('/academy/path')
       setAcademy({ path: data.path, profile: data.profile, loading: false, refreshing: false })
+      syncThemeState(data.theme ?? data.profile?.theme ?? null, data.themes ?? null)
     } catch (error) {
-      setAcademy((prev) => ({ ...prev, loading: false, refreshing: false, error: formatError(error) }))
+      const message = formatError(error)
+      setAcademy((prev) => ({ ...prev, loading: false, refreshing: false, error: message }))
+      setThemeState((prev) => ({ ...prev, loading: false, updating: false, error: message }))
     }
-  }, [])
+  }, [syncThemeState])
 
   const fetchArena = useCallback(async () => {
     setArena((prev) => ({ ...prev, refreshing: true }))
@@ -42,10 +76,57 @@ export function AppDataProvider({ children }) {
     }
   }, [])
 
+  const fetchMissions = useCallback(async () => {
+    setMissions((prev) => ({ ...prev, refreshing: true }))
+    try {
+      const { data } = await api.get('/missions')
+      setMissions({ rotation: data.rotation, catalog: data.catalog ?? [], loading: false, refreshing: false })
+      if (data.profile) {
+        setAcademy((prev) => ({ ...prev, profile: data.profile }))
+        if (data.profile.theme) {
+          syncThemeState(data.profile.theme, null)
+        }
+      }
+    } catch (error) {
+      setMissions((prev) => ({ ...prev, loading: false, refreshing: false, error: formatError(error) }))
+    }
+  }, [syncThemeState])
+
   const showToast = useCallback((message, tone = 'success') => {
     setToast({ id: Date.now(), message, tone })
     setTimeout(() => setToast(null), 2800)
   }, [])
+
+  const changeTheme = useCallback(
+    async (themeId) => {
+      if (!themeId || themeId === theme?.selected?.id) return
+      setThemeState((prev) => ({ ...prev, updating: true, error: null }))
+      try {
+        const { data } = await api.post(`/academy/themes/${themeId}`)
+        syncThemeState(data.theme ?? null, data.themes ?? null)
+        setAcademy((prev) => ({
+          ...prev,
+          path: data.path ?? prev.path,
+          profile: data.profile ?? prev.profile,
+          loading: false,
+          refreshing: false,
+        }))
+        setArena((prev) => ({
+          ...prev,
+          challenges: data.challenges ?? prev.challenges,
+          loading: false,
+          refreshing: false,
+        }))
+        await fetchMissions()
+        showToast('Tema atualizado! 🎨', 'success')
+      } catch (error) {
+        const message = formatError(error)
+        setThemeState((prev) => ({ ...prev, updating: false, error: message }))
+        showToast(message, 'danger')
+      }
+    },
+    [fetchMissions, showToast, syncThemeState, theme?.selected?.id]
+  )
 
   const completeLesson = useCallback(
     async (lessonId, stats = {}) => {
@@ -57,19 +138,46 @@ export function AppDataProvider({ children }) {
     [fetchAcademy, fetchArena, showToast]
   )
 
-  const simulateChallenge = useCallback(async (challengeId, code) => {
-    const { data } = await api.post(`/arena/challenges/${challengeId}/simulate`, { code })
+  const simulateChallenge = useCallback(async (challengeId, code, options = {}) => {
+    const payload = { code }
+    if (options.params) payload.params = options.params
+    if (options.mods) payload.mods = options.mods
+    const { data } = await api.post(`/arena/challenges/${challengeId}/simulate`, payload)
     return data.simulation
   }, [])
 
   const submitChallenge = useCallback(
-    async (challengeId, code) => {
-      const { data } = await api.post(`/arena/challenges/${challengeId}/submit`, { code })
+    async (challengeId, code, options = {}) => {
+      const payload = { code }
+      if (options.params) payload.params = options.params
+      if (options.mods) payload.mods = options.mods
+      const { data } = await api.post(`/arena/challenges/${challengeId}/submit`, payload)
       await Promise.all([fetchAcademy(), fetchArena()])
       showToast(data.message, data.meetsGoal ? 'success' : 'warning')
       return data
     },
     [fetchAcademy, fetchArena, showToast]
+  )
+
+  const completeMission = useCallback(
+    async (missionId, choice) => {
+      const { data } = await api.post(`/missions/${missionId}/complete`, { choice })
+      setMissions((prev) => ({ ...prev, rotation: data.rotation ?? prev.rotation }))
+      await Promise.all([fetchMissions(), fetchAcademy()])
+      showToast('Missão concluída! Recompensas aplicadas.', 'success')
+      return data
+    },
+    [fetchAcademy, fetchMissions, showToast]
+  )
+
+  const activateBooster = useCallback(
+    async (boosterType) => {
+      const { data } = await api.post(`/missions/boosters/${boosterType}/use`)
+      await Promise.all([fetchMissions(), fetchAcademy()])
+      showToast('Booster ativado!', 'success')
+      return data
+    },
+    [fetchAcademy, fetchMissions, showToast]
   )
 
   const startAutomationFarm = useCallback((challengeId, { rate, label, resetPoints = false } = {}) => {
@@ -109,6 +217,14 @@ export function AppDataProvider({ children }) {
     })
   }, [])
 
+  const getFarmMultiplier = useCallback(() => {
+    const expiresAt = academy.profile?.activeBoosters?.turboFarm?.expiresAt
+    if (expiresAt && expiresAt > Date.now()) {
+      return 1.25
+    }
+    return 1
+  }, [academy.profile?.activeBoosters?.turboFarm?.expiresAt])
+
   useEffect(() => {
     if (!automationFarm.isRunning) return undefined
     const interval = setInterval(() => {
@@ -117,50 +233,66 @@ export function AppDataProvider({ children }) {
         const now = Date.now()
         const last = prev.lastUpdate ?? now
         const deltaSeconds = (now - last) / 1000
+        const multiplier = getFarmMultiplier()
         return {
           ...prev,
-          points: prev.points + prev.rate * deltaSeconds,
+          points: prev.points + prev.rate * multiplier * deltaSeconds,
           lastUpdate: now,
         }
       })
     }, 1000)
     return () => clearInterval(interval)
-  }, [automationFarm.isRunning])
+  }, [automationFarm.isRunning, getFarmMultiplier])
 
   const value = useMemo(
     () => ({
       academy,
       arena,
+      missions,
       toast,
+      theme,
       refreshAcademy: fetchAcademy,
       refreshArena: fetchArena,
-      refreshAll: () => Promise.all([fetchAcademy(), fetchArena()]),
+      refreshMissions: fetchMissions,
+      refreshAll: () => Promise.all([fetchAcademy(), fetchArena(), fetchMissions()]),
+      changeTheme,
       completeLesson,
       simulateChallenge,
       submitChallenge,
+      completeMission,
+      activateBooster,
       automationFarm,
       startAutomationFarm,
       stopAutomationFarm,
+      farmMultiplier: getFarmMultiplier,
     }),
     [
       academy,
       arena,
+      missions,
       toast,
-      fetchAcademy,
-      fetchArena,
+  fetchAcademy,
+  fetchArena,
+  fetchMissions,
       completeLesson,
       simulateChallenge,
       submitChallenge,
+      completeMission,
+  activateBooster,
       automationFarm,
       startAutomationFarm,
       stopAutomationFarm,
+      getFarmMultiplier,
+      theme,
+      changeTheme,
     ]
   )
 
   useEffect(() => {
     fetchAcademy()
     fetchArena()
-  }, [fetchAcademy, fetchArena])
+    fetchMissions()
+  }, [fetchAcademy, fetchArena, fetchMissions])
 
   return <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>
 }

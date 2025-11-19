@@ -5,6 +5,10 @@ const {
   completeLesson,
   completeCheckpoint,
   getProfile,
+  getThemeOptions,
+  setTheme,
+  getActiveTheme,
+  getChallengesWithStatus,
 } = require("../progressStore");
 
 const router = express.Router();
@@ -13,6 +17,8 @@ router.get("/path", (req, res) => {
   return res.json({
     path: getPathWithStatus(),
     profile: getProfile(),
+    theme: getActiveTheme(),
+    themes: getThemeOptions(),
   });
 });
 
@@ -47,6 +53,22 @@ router.post("/checkpoints/:checkpointId/complete", (req, res) => {
       path: getPathWithStatus(),
       profile: getProfile(),
       progress: data,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
+
+router.post("/themes/:themeId", (req, res) => {
+  try {
+    const theme = setTheme(req.params.themeId);
+    return res.json({
+      message: "Tema atualizado",
+      theme,
+      themes: getThemeOptions(),
+      path: getPathWithStatus(),
+      profile: getProfile(),
+      challenges: getChallengesWithStatus(),
     });
   } catch (error) {
     return res.status(400).json({ message: error.message });

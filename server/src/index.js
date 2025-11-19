@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const academyRoutes = require("./routes/academy");
 const arenaRoutes = require("./routes/arena");
+const missionsRoutes = require("./routes/missions");
 
 const createApp = () => {
   const app = express();
@@ -20,6 +21,7 @@ const createApp = () => {
 
   app.use("/api/academy", academyRoutes);
   app.use("/api/arena", arenaRoutes);
+  app.use("/api/missions", missionsRoutes);
 
   return app;
 };
