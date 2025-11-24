@@ -1,0 +1,48 @@
+:root {
+  color-scheme: dark;
+}
+
+.clip-path-hexagon {
+  clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
+}
+
+.grid-bg {
+  background-image: var(--bg-pattern);
+  background-size: var(--bg-size);
+}
+
+.typing-effect {
+  position: relative;
+  overflow: hidden;
+  white-space: pre-wrap;
+  animation: typing 2s steps(36, end) forwards;
+}
+
+.typing-effect::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  background-color: currentColor;
+  animation: blink 0.8s steps(1, end) infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

@@ -1,52 +1,34 @@
-# CodeSpark Client (React + Vite)
+# BotoCode Academy – Client
 
-Frontend responsável pela experiência "Academia → Arena" do CodeSpark. Ele consome os endpoints Express expostos em `/academy` e `/arena`, mantém o progresso no contexto global e entrega a tal "magia do Duolingo" dentro das lições.
+Frontend React + Vite que reproduz a experiência do app Botocode com três temas visuais, HUD dinâmico e dados mockados. Tudo vive direto nesta pasta (sem `src/`): `App.tsx`, páginas em `pages/`, contexto em `contexts/` e componentes em `components/`.
 
-## Principais telas
-
-- **Academia**: path vertical com cards de skill, status e XP de cada lição/checkpoint.
-- **Lição/story player**: cartões de conceito/código/quiz/arraste com corações, streak, combo e XP preview dinâmico.
-- **Lição/story player**: cartões de conceito/código/quiz/arraste com corações, streak, combo e XP preview dinâmico.
-- **Arena**: workspace com teclado inteligente, simulação que vira um mini idle game (farm de pontos por segundo) e ranking.
-
-## Scripts úteis
+## Rodando localmente
 
 ```powershell
-# instalar dependências
 npm install
-
-# rodar em modo desenvolvimento
 npm run dev
+```
 
-# análise estática
-npm run lint
+O Vite sobe em `http://localhost:3000`. Como usamos `HashRouter`, os links funcionam mesmo em hospedagem estática.
 
-# build de produção
+## Variáveis de ambiente
+
+- `.env.local` (opcional)
+	- `GEMINI_API_KEY=<sua-chave>` para integrações futuras com Gemini.
+	- `VITE_API_URL=http://localhost:4000/api` para apontar o frontend ao backend Express (padrão mostrado acima).
+
+## Build
+
+```powershell
 npm run build
 ```
 
-> Configure a API via `VITE_API_URL` (padrão `http://localhost:4000/api`).
-
-## Stack
-
-- React 19 + React Router 7
-- Axios para chamadas HTTP
-- Vite 7 para build/dev server
-- ESLint 9 com regras recomendadas + React Hooks
+Os artefatos ficam em `dist/`. Faça deploy estático (Vercel, Netlify, Azure Static Web Apps etc.).
 
 ## Estrutura rápida
 
-- `src/pages`: Academy, Arena, Lesson e Challenge.
-- `src/components`: navegação inferior, learning path, teclado, simulação.
-- `src/context/AppDataContext.jsx`: fetch + cache de progresso/arena e toasts.
-- `src/api/client.js`: cliente Axios apontando para `VITE_API_URL`.
-
-## Experiência gamificada
-
-- Corações limitados: cada erro remove um, combos recuperam motivação.
-- Streak cresce a cada trio perfeito de respostas, exibido junto aos corações.
-- XP preview mostra quanto da recompensa será conquistada antes de concluir.
-- Mensagens de motivação e pill de combo entram após cada resposta correta/errada.
-- Simulação da Arena inicia um farm automatizado que continua acumulando pontos mesmo fora da aba, parando apenas quando você muda o código ou aperta “Parar”.
-
-Sinta-se livre para ajustar o tema em `src/App.css` e adicionar novos tipos de cartão caso queira evoluir a mecânica.
+- `contexts/AppDataContext.tsx`: provê usuário, lições, missões e desafios mockados + troca dinâmica de tema.
+- `pages/AcademyPage.tsx`: timeline animada da trilha.
+- `pages/LessonPage.tsx`: player interativo com quizzes, reorder e animação de sucesso.
+- `pages/ArenaPage.tsx`, `pages/ChallengePage.tsx`, `pages/MissionsPage.tsx`, `pages/ProfilePage.tsx`: experiências complementares.
+- `components/ui/*`: avatar do Boto, botões temáticos e animações.

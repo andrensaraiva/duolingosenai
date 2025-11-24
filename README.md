@@ -1,62 +1,62 @@
-# CodeSpark: Academia de Automação (MVP)
+# BotoCode Academy
 
-Trilha única focada em **Python para IA** (variáveis → if/else) mais um desafio completo na Arena para automatizar uma linha de sensores usando loops.
+Experiência gamificada focada em fundamentos de programação com três temas visuais (cyber, retro-game e sport). O frontend React reproduz o fluxo do aplicativo Botocode: painel com HUD dinâmico, trilha de lições, arenas, missões diárias e personalização do avatar Boto. O backend Express original continua disponível caso você queira evoluir para dados persistidos.
 
-## Visão Geral
+## Estrutura
 
-- **Academia Python**: 5 lições sequenciais (print, variáveis, tipos, operações, if/else) em formato stories com quizzes e arraste-e-solte para treinar sintaxe.
-- **Arena – Laboratório de Automação IA**: workspace com teclado inteligente e simulação visual sempre acessível; você pode praticar desde o primeiro minuto, mas completar a trilha Python aumenta muito a eficiência.
-- **Progressão**: completar todas as lições libera o checkpoint “Fundamentos Python” e, consequentemente, o desafio avançado. O ranking usa o tempo e eficiência do script submetido.
-- **Roadmap**: banners na Academia avisam sobre futuras trilhas (Dados, Visão, NLP) para alinhar com o plano de ensinar IA por camadas.
+| Pasta | Descrição |
+| --- | --- |
+| `client/` | Nova aplicação React + Vite em TypeScript (Botocode Academy). Usa Tailwind via CDN, framer-motion, ícones lucide e dados mockados em `services/mockData.ts`. |
+| `server/` | API Node.js + Express (ainda baseada no MVP anterior). Pode ser ligada futuramente ao novo frontend ao trocar o contexto mockado. |
+| `RELATORIO.md` | Notas suplementares do projeto. |
 
-## Stack
+## Pré-requisitos
 
-- **Frontend**: React 19 + Vite, React Router, Axios.
-- **Backend**: Node.js + Express 5 com dados em memória, simulador simples e ranking mockado.
-
-## Como rodar
-
-### Pré-requisitos
 - Node.js 18+
+- npm 10+
 
-### API (server)
+## Como rodar o frontend (client)
+
+```powershell
+cd client
+npm install
+npm run dev
+```
+
+A aplicação abre em `http://localhost:3000` usando `HashRouter`, então os links funcionam mesmo em ambientes estáticos. O arquivo `.env.local` permite armazenar a chave `GEMINI_API_KEY` (opcional) e o endpoint `VITE_API_URL` para apontar o frontend ao backend Express (`http://localhost:4000/api` por padrão).
+
+### Build de produção
+
+```powershell
+cd client
+npm run build
+```
+
+Gera assets otimizados em `client/dist`, prontos para deploy estático.
+
+## API Express (opcional)
+
+O backend do MVP original permanece em `server/`. Ele ainda serve dados em memória e pode ser ligado mais tarde ao novo frontend substituindo os mocks.
+
 ```powershell
 cd server
 npm install
 npm run dev
 ```
-A API sobe em `http://localhost:4000`. Endpoint de teste: `GET /api/health`.
 
-### Web App (client)
-```powershell
-cd client
-npm install
-npm run dev
-```
-Acesse `http://localhost:5173`. Para apontar para outra API, crie `.env` na pasta `client` com:
-```
-VITE_API_URL=http://localhost:4000/api
-```
+A API inicia em `http://localhost:4000`.
 
-### Build de produção
-```powershell
-cd client
-npm run build
-```
-Os artefatos ficam em `client/dist`.
+## Funcionalidades do Botocode frontend
 
-## Funcionalidades principais
-- Trilha vertical exclusiva da jornada Python, com ícones diferenciando lições e checkpoints e o banner de “próximas trilhas”.
-- Player de lições em formato stories com cartões de conceito/código/quiz/ordenação, barra de progresso e tela de recompensa + XP.
-- Arena com o desafio “Laboratório de Automação IA” que mostra contexto, critérios de sucesso, ranking e bloqueio até finalizar toda a trilha.
-- Workspace Python-first: teclado inteligente com snippets úteis, starter template com sensores fictícios, simulação 2D que traduz a complexidade do script em trilha visual e métricas (tempo, rotinas, loops detectados, insights de variáveis/condicionais).
-- Player de lições agora com corações, streak e XP preview em tempo real — bem no espírito Duolingo — incentivando combos sem depender de GIFs.
-- Tela inicial mostra seu streak atual e quantos corações sobraram antes da próxima missão.
-- Simulação da Arena virou um mini idle-game: ao rodar o script, você começa a farmar pontos automaticamente (+pts/s) até decidir parar ou mexer no código.
+- HUD responsivo (`components/layout/PlayerHud.tsx`) com displays diferentes por tema.
+- Navegação inferior temática (`components/layout/BottomNav.tsx`).
+- Trilha da Academia com animações e formas diferentes por tema (`pages/AcademyPage.tsx`).
+- Player de lições cheio de feedback visual, XP progressivo e animações de sucesso (`pages/LessonPage.tsx`).
+- Arena, desafios e missões diárias baseados em mock data (`pages/ArenaPage.tsx`, `pages/ChallengePage.tsx`, `pages/MissionsPage.tsx`).
+- Perfil com personalização do Boto e troca de tema (`pages/ProfilePage.tsx`).
 
 ## Próximos passos sugeridos
-- Persistir progresso em banco real (ex: Prisma + SQLite/Postgres).
-- Autenticação e perfis multiusuário.
-- Editor com destaque de sintaxe real (ex: Monaco) e motor de simulação separado.
-- Testes automatizados (unitários e e2e) cobrindo lições e desafio.
-- Expandir trilhas: Dados para IA, Visão Computacional, NLP, cada uma com suas arenas específicas.
+
+1. Substituir os mocks do contexto (`contexts/AppDataContext.tsx`) por chamadas reais à API do servidor.
+2. Adicionar testes para garantir que animações críticas e interações de quiz permaneçam consistentes.
+3. Publicar a build estática em um CDN e plugar o backend quando a persistência estiver pronta.

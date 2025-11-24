@@ -29,7 +29,7 @@ const createApp = () => {
 const startServer = (port = process.env.PORT || 4000) => {
   const app = createApp();
   return app.listen(port, () => {
-    console.log(`CodeSpark API rodando na porta ${port}`);
+    console.log(`BotoCode Academy API rodando na porta ${port}`);
   });
 };
 
