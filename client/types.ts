@@ -1,10 +1,13 @@
 export interface CharacterCustomization {
   color: 'pink' | 'blue' | 'purple' | 'orange';
-  hat: 'none' | 'party' | 'cowboy' | 'astronaut' | 'crown';
-  accessory: 'none' | 'glasses' | 'bowtie' | 'scarf';
+  head: 'none' | 'antenna' | 'crown' | 'headphones' | 'cap';
+  eyes: 'none' | 'sunglasses' | 'visor' | 'patch';
+  tail: 'none' | 'fin-ring' | 'thruster' | 'ribbon';
 }
 
 export type ThemeId = 'cyber' | 'game' | 'sport';
+
+export type TrackId = 'python' | 'design';
 
 export interface User {
   id: string;
@@ -19,6 +22,7 @@ export interface User {
   inventory: string[]; // Booster IDs
   customization: CharacterCustomization;
   activeTheme: ThemeId;
+  activeTrack?: TrackId;
 }
 
 export enum LessonType {
@@ -46,6 +50,7 @@ export interface Lesson {
   locked: boolean;
   completed: boolean;
   position: 'left' | 'center' | 'right'; // Visual path position
+  trackId?: TrackId;
 }
 
 export interface Mission {
@@ -66,4 +71,24 @@ export interface Challenge {
   description: string;
   multiplier: number;
   bestScore?: number;
+}
+
+export type ResourceType = 'MATERIAL' | 'SEED' | 'ENERGY';
+
+export interface ArenaNode {
+  id: number;
+  type: 'SOURCE' | 'PLOT';
+  sourceType?: ResourceType;
+  state: 'EMPTY' | 'BUILT' | 'SEEDED' | 'ACTIVE' | 'CONVERTED';
+  level: number;
+  label?: string;
+  yieldRate?: number;
+  comboLevel?: number;
+}
+
+export interface BotInstruction {
+  id: string;
+  command: 'GOTO' | 'HARVEST' | 'BUILD' | 'INSTALL' | 'UPGRADE' | 'CONVERT' | 'BREAK';
+  target?: number;
+  resource?: ResourceType;
 }

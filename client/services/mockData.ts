@@ -12,10 +12,12 @@ export const INITIAL_USER: User = {
   completedMissions: [],
   inventory: ['double_xp'],
   activeTheme: 'cyber',
+  activeTrack: 'python',
   customization: {
     color: 'pink',
-    hat: 'none',
-    accessory: 'none'
+    head: 'none',
+    eyes: 'none',
+    tail: 'none'
   }
 };
 

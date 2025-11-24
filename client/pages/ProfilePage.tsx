@@ -13,8 +13,9 @@ const ProfilePage = () => {
   const [currentCustomization, setCurrentCustomization] = useState<CharacterCustomization>(user.customization);
 
   const colors: CharacterCustomization['color'][] = ['pink', 'blue', 'purple', 'orange'];
-  const hats: CharacterCustomization['hat'][] = ['none', 'party', 'cowboy', 'astronaut', 'crown'];
-  const accessories: CharacterCustomization['accessory'][] = ['none', 'glasses', 'bowtie', 'scarf'];
+  const heads: CharacterCustomization['head'][] = ['none', 'antenna', 'crown', 'headphones', 'cap'];
+  const eyes: CharacterCustomization['eyes'][] = ['none', 'sunglasses', 'visor', 'patch'];
+  const tails: CharacterCustomization['tail'][] = ['none', 'fin-ring', 'thruster', 'ribbon'];
 
   const handleSave = () => {
     updateCustomization(currentCustomization);
@@ -40,10 +41,10 @@ const ProfilePage = () => {
       <div className="flex-1 max-w-md mx-auto w-full p-4 pb-24">
         
         {/* Preview Area - Holo Deck */}
-        <div className="bg-surface/50 border border-white/10 rounded-xl p-8 mb-8 flex flex-col items-center justify-center relative overflow-hidden shadow-2xl">
+        <div className="bg-surface/50 border border-white/10 rounded-xl p-8 mb-8 flex flex-col items-center justify-center relative overflow-hidden shadow-2xl min-h-[300px]">
           <div className="absolute inset-0 theme-grid-bg opacity-30"></div>
           
-          <div className="relative z-10 scale-125">
+          <div className="relative z-10 scale-110">
              <BotoAvatar 
                 {...currentCustomization} 
                 size="xl" 
@@ -52,8 +53,8 @@ const ProfilePage = () => {
             />
           </div>
           
-          <div className="mt-6 bg-black/40 border border-white/20 px-4 py-1 rounded font-mono text-xs text-boto-500">
-             ID: {user.codename}
+           <div className="mt-8 bg-black/40 border border-white/20 px-4 py-1 rounded font-mono text-xs text-boto-500 animate-pulse">
+             MODEL_ID: {user.codename}
           </div>
         </div>
 
@@ -87,9 +88,9 @@ const ProfilePage = () => {
         </section>
 
         {/* Customization Options */}
-        <div className="space-y-8 border-t border-white/10 pt-6">
+        <div className="space-y-6 border-t border-white/10 pt-6">
           
-          {/* Colors */}
+          {/* BODY (Colors) */}
           <section>
             <h3 className="font-mono text-sm text-slate-400 mb-3 uppercase">Hologram Color</h3>
             <div className="flex space-x-4">
@@ -111,39 +112,58 @@ const ProfilePage = () => {
             </div>
           </section>
 
-          {/* Hats */}
+          {/* HEAD */}
           <section>
             <h3 className="font-mono text-sm text-slate-400 mb-3 uppercase">Head Module</h3>
             <div className="grid grid-cols-5 gap-2">
-              {hats.map(h => (
+              {heads.map(h => (
                 <button
                   key={h}
-                  onClick={() => setCurrentCustomization(prev => ({ ...prev, hat: h }))}
+                  onClick={() => setCurrentCustomization(prev => ({ ...prev, head: h }))}
                   className={`aspect-square rounded bg-surface border flex items-center justify-center text-2xl transition-all ${
-                    currentCustomization.hat === h ? 'border-boto-500 bg-white/5 shadow-[0_0_10px_rgba(var(--primary-color)/0.2)]' : 'border-white/10 opacity-70 hover:opacity-100'
+                    currentCustomization.head === h ? 'border-boto-500 bg-white/5 shadow-[0_0_10px_rgba(var(--primary-color)/0.2)]' : 'border-white/10 opacity-70 hover:opacity-100'
                   }`}
                 >
                   {h === 'none' ? <span className="text-slate-500 text-xs font-mono">NULL</span> : 
-                   h === 'party' ? '🤖' : h === 'cowboy' ? '📡' : h === 'astronaut' ? '⛑️' : '👑'}
+                   h === 'antenna' ? '📡' : h === 'crown' ? '👑' : h === 'headphones' ? '🎧' : '🧢'}
                 </button>
               ))}
             </div>
           </section>
 
-           {/* Accessories */}
+           {/* EYES */}
            <section>
-            <h3 className="font-mono text-sm text-slate-400 mb-3 uppercase">Add-ons</h3>
+            <h3 className="font-mono text-sm text-slate-400 mb-3 uppercase">Optical Sensor</h3>
             <div className="grid grid-cols-4 gap-2">
-              {accessories.map(a => (
+              {eyes.map(e => (
                 <button
-                  key={a}
-                  onClick={() => setCurrentCustomization(prev => ({ ...prev, accessory: a }))}
+                  key={e}
+                  onClick={() => setCurrentCustomization(prev => ({ ...prev, eyes: e }))}
                   className={`aspect-square rounded bg-surface border flex items-center justify-center text-2xl transition-all ${
-                    currentCustomization.accessory === a ? 'border-boto-500 bg-white/5 shadow-[0_0_10px_rgba(var(--primary-color)/0.2)]' : 'border-white/10 opacity-70 hover:opacity-100'
-                  }`}
+                    currentCustomization.eyes === e ? 'border-boto-500 bg-white/5 shadow-[0_0_10px_rgba(var(--primary-color)/0.2)]' : 'border-white/10 opacity-70 hover:opacity-100'
+                 }`}
                 >
-                  {a === 'none' ? <span className="text-slate-500 text-xs font-mono">NULL</span> : 
-                   a === 'glasses' ? '🕶️' : a === 'bowtie' ? '💾' : '🧣'}
+                  {e === 'none' ? <span className="text-slate-500 text-xs font-mono">NULL</span> : 
+                   e === 'sunglasses' ? '🕶️' : e === 'visor' ? '🥽' : '🏴‍☠️'}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* TAIL */}
+          <section>
+            <h3 className="font-mono text-sm text-slate-400 mb-3 uppercase">Rear Thruster</h3>
+            <div className="grid grid-cols-4 gap-2">
+              {tails.map(t => (
+                <button
+                  key={t}
+                  onClick={() => setCurrentCustomization(prev => ({ ...prev, tail: t }))}
+                  className={`aspect-square rounded bg-surface border flex items-center justify-center text-2xl transition-all ${
+                    currentCustomization.tail === t ? 'border-boto-500 bg-white/5 shadow-[0_0_10px_rgba(var(--primary-color)/0.2)]' : 'border-white/10 opacity-70 hover:opacity-100'
+                 }`}
+                >
+                  {t === 'none' ? <span className="text-slate-500 text-xs font-mono">NULL</span> : 
+                   t === 'fin-ring' ? '⭕' : t === 'thruster' ? '🔥' : '🎀'}
                 </button>
               ))}
             </div>
