@@ -13,6 +13,7 @@ const LessonPage = () => {
   const navigate = useNavigate();
   const { lessons, user, loseHeart, completeLesson } = useAppData();
   const theme = user.activeTheme;
+  const isCyber = theme === 'cyber';
   
   const lesson = lessons.find(l => l.id === lessonId);
   
@@ -93,17 +94,17 @@ const LessonPage = () => {
   // Render Completion Overlay - "System Upgrade"
   const themeStyles = {
     cyber: {
-      background: 'porto-wave-container',
-      panel: 'porto-panel border-4 border-[#5D4037] rounded-3xl text-[#3E2723]',
-      accent: 'text-[#BF360C]',
-      progress: 'bg-[#FFCA28]',
-      heart: 'text-[#EF5350]',
-      buttonPrimary: 'bg-[#FFCA28] border-2 border-[#FFB300] text-[#BF360C]',
-      buttonSuccess: 'bg-[#2f9364] border-2 border-[#1f6a46] text-[#f4fff9]',
-      buttonDanger: 'bg-[#b23a48] border-2 border-[#7c2631] text-white',
-      footer: 'porto-panel border-t-4 border-[#5D4037] text-[#3E2723]',
-      footerSuccess: 'bg-[#1f6a46] border-t-4 border-[#0f5132] text-[#e2f9ec]',
-      footerDanger: 'bg-[#7c2631] border-t-4 border-[#4d151d] text-white',
+      background: 'porto-grid',
+      panel: 'rounded-3xl border border-[#cadaf0] bg-white/95 text-[#1b2a3a] shadow-[0_25px_60px_rgba(12,55,95,0.18)]',
+      accent: 'text-[#0077c8]',
+      progress: 'bg-gradient-to-r from-[#6dd7ff] to-[#0077c8]',
+      heart: 'text-[#ff5c83]',
+      buttonPrimary: 'bg-[#0077c8] border border-[#0063a6] text-white hover:bg-[#005b96]',
+      buttonSuccess: 'bg-[#00b3ff] border border-[#0093d1] text-white',
+      buttonDanger: 'bg-[#ff5c83] border border-[#e0446a] text-white',
+      footer: 'bg-white/95 border-t border-[#cadaf0] text-[#1b2a3a]',
+      footerSuccess: 'bg-[#e5f9f2] border-t border-[#9be7d8] text-[#0f5c49]',
+      footerDanger: 'bg-[#ffe9ee] border-t border-[#ffb0c4] text-[#7c1f33]',
     },
     game: {
       background: 'pixel-scanlines',
@@ -137,9 +138,9 @@ const LessonPage = () => {
     return (
       <div className="h-screen bg-background flex flex-col items-center justify-center p-6 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-30"></div>
-        {theme === 'cyber' && (
-          <div className="porto-wave-container">
-            <div className="porto-wave"></div>
+        {isCyber && (
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 opacity-70" style={{ background: 'radial-gradient(circle at 20% 20%, rgba(0,165,255,0.18), transparent 45%), linear-gradient(120deg, rgba(255,255,255,0.2), transparent 60%)' }}></div>
           </div>
         )}
         <SuccessAnimation />
@@ -157,15 +158,15 @@ const LessonPage = () => {
           </div>
           
           <h2 className={`text-2xl font-tech ${themeStyles.accent} mb-2 uppercase tracking-widest`}>Missão Concluída</h2>
-          <p className="text-slate-300 font-mono text-sm mb-8">Progresso registrado no diário do Boto.</p>
+          <p className={`font-mono text-sm mb-8 ${isCyber ? 'text-[#5f7d9a]' : 'text-slate-300'}`}>Progresso registrado no diário do Boto.</p>
           
           <div className="grid grid-cols-2 gap-4 w-full mb-8">
-            <div className="bg-black/30 border border-white/10 p-4 rounded-lg flex flex-col items-center">
-              <span className="text-[10px] font-mono text-slate-300 uppercase mb-1">XP</span>
+            <div className={`${isCyber ? 'bg-white/90 border border-[#cadaf0] text-[#1b2a3a]' : 'bg-black/30 border border-white/10 text-white'} p-4 rounded-lg flex flex-col items-center`}>
+              <span className={`text-[10px] font-mono uppercase mb-1 ${isCyber ? 'text-[#5f7d9a]' : 'text-slate-300'}`}>XP</span>
               <span className={`text-2xl font-tech ${themeStyles.accent}`}>+{displayedXp}</span>
             </div>
-            <div className="bg-black/30 border border-white/10 p-4 rounded-lg flex flex-col items-center">
-               <span className="text-[10px] font-mono text-slate-300 uppercase mb-1">Streak</span>
+            <div className={`${isCyber ? 'bg-white/90 border border-[#cadaf0] text-[#1b2a3a]' : 'bg-black/30 border border-white/10 text-white'} p-4 rounded-lg flex flex-col items-center`}>
+               <span className={`text-[10px] font-mono uppercase mb-1 ${isCyber ? 'text-[#5f7d9a]' : 'text-slate-300'}`}>Streak</span>
                <div className={`flex items-center ${themeStyles.accent}`}>
                   <span className="text-2xl font-tech">{user.streak}</span>
                   <span className="text-lg ml-1">⚡</span>
@@ -182,21 +183,21 @@ const LessonPage = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-background text-slate-100 overflow-hidden relative">
-      {theme === 'cyber' && (
-        <div className="porto-wave-container">
-          <div className="porto-wave"></div>
+    <div className={`h-screen flex flex-col bg-background overflow-hidden relative ${isCyber ? 'text-[#1b2a3a]' : 'text-slate-100'}`}>
+      {isCyber && (
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 opacity-60" style={{ background: 'radial-gradient(circle at 18% 18%, rgba(0,165,255,0.2), transparent 45%), linear-gradient(160deg, rgba(255,255,255,0.2), transparent 60%)' }}></div>
         </div>
       )}
       {theme === 'sport' && <div className="absolute inset-0 sport-stripe opacity-40"></div>}
       {theme === 'game' && <div className="absolute inset-0 pixel-scanlines opacity-40"></div>}
       
       {/* Header */}
-      <div className={`px-4 py-4 flex items-center justify-between z-10 ${theme === 'cyber' ? 'porto-panel border-b-4 border-[#5D4037]' : theme === 'game' ? 'bg-[#1b0f33] border-b-4 border-[#ff4081]' : 'bg-[#0f1b3a] border-b-4 border-[#ff6347]'}`}>
-        <button onClick={() => navigate('/')} className={`${theme === 'cyber' ? 'text-[#3E2723] hover:text-[#BF360C]' : 'text-white/70 hover:text-white'} transition-colors`}>
+      <div className={`px-4 py-4 flex items-center justify-between z-10 ${theme === 'cyber' ? 'bg-white/95 border-b border-[#cadaf0] shadow-sm' : theme === 'game' ? 'bg-[#1b0f33] border-b-4 border-[#ff4081]' : 'bg-[#0f1b3a] border-b-4 border-[#ff6347]'}`}>
+        <button onClick={() => navigate('/')} className={`${theme === 'cyber' ? 'text-[#5f7d9a] hover:text-[#0077c8]' : 'text-white/70 hover:text-white'} transition-colors`}>
           <X className="w-6 h-6" />
         </button>
-        <div className="flex-1 mx-6 h-1 bg-black/30 rounded-full overflow-hidden">
+        <div className={`flex-1 mx-6 h-1 rounded-full overflow-hidden ${theme === 'cyber' ? 'bg-[#dfe9f5]' : 'bg-black/30'}`}>
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
@@ -226,7 +227,7 @@ const LessonPage = () => {
             <div className="flex items-center justify-center mb-6 space-x-2">
                  {currentStep.type === LessonType.CONCEPT && <Cpu className="text-boto-500" />}
                  {currentStep.type === LessonType.QUIZ && <Terminal className="text-tech-purple" />}
-                 <h2 className="text-xl font-tech text-slate-200 text-center uppercase tracking-wide">
+                 <h2 className={`text-xl font-tech text-center uppercase tracking-wide ${isCyber ? 'text-[#0f2b44]' : 'text-slate-200'}`}>
                     {currentStep.type === LessonType.CONCEPT && "Data Input"}
                     {currentStep.type === LessonType.QUIZ && "Verify Logic"}
                     {currentStep.type === LessonType.CODE_ORDER && "Sequence Algorithm"}
@@ -240,7 +241,7 @@ const LessonPage = () => {
                        <div className="absolute inset-0 bg-boto-500/20 blur-xl rounded-full animate-pulse"></div>
                        <BotoAvatar {...user.customization} size="md" emotion="idle" />
                    </div>
-                   <div className="bg-slate-800/80 backdrop-blur p-6 rounded-lg border-l-2 border-boto-500 shadow-lg text-slate-300 font-mono text-sm leading-relaxed typing-effect">
+                     <div className={`backdrop-blur p-6 rounded-lg border text-sm font-mono leading-relaxed typing-effect ${isCyber ? 'bg-white/95 border-[#cadaf0] text-[#1b2a3a]' : 'bg-slate-800/80 border-l-2 border-boto-500 text-slate-300 shadow-lg'}`}>
                        {currentStep.content}
                    </div>
                </div>
@@ -249,7 +250,7 @@ const LessonPage = () => {
             {/* Quiz Options */}
             {currentStep.type === LessonType.QUIZ && (
                 <div className="space-y-4">
-                     <div className="bg-slate-900 border border-slate-700 p-4 rounded mb-6 font-mono text-sm text-green-400">
+                     <div className={`p-4 rounded mb-6 font-mono text-sm ${isCyber ? 'bg-white/95 border border-[#cadaf0] text-[#1b2a3a]' : 'bg-slate-900 border border-slate-700 text-green-400'}`}>
                         <span className="text-slate-500">{'// Query:'}</span><br/>
                         {currentStep.content}
                      </div>
@@ -257,17 +258,17 @@ const LessonPage = () => {
                         <button
                             key={opt}
                             onClick={() => status === 'idle' && setSelectedOption(opt)}
-                            className={`w-full p-4 rounded border font-mono text-sm text-left transition-all relative overflow-hidden group ${
-                                selectedOption === opt 
-                                ? 'bg-boto-900/30 border-boto-500 text-boto-300' 
-                                : 'bg-surface border-slate-700 text-slate-400 hover:border-slate-500 hover:bg-slate-800'
-                            }`}
+                        className={`w-full p-4 rounded border font-mono text-sm text-left transition-all relative overflow-hidden group ${
+                          selectedOption === opt 
+                          ? isCyber ? 'bg-[#e6f3ff] border-[#69d5ff] text-[#0077c8]' : 'bg-boto-900/30 border-boto-500 text-boto-300'
+                          : isCyber ? 'bg-white border-[#cadaf0] text-[#1b2a3a] hover:border-[#69d5ff]' : 'bg-surface border-slate-700 text-slate-400 hover:border-slate-500 hover:bg-slate-800'
+                        }`}
                         >
                             <span className="mr-3 opacity-50 text-xs text-slate-500">
                                 {opt.includes('==') ? 'bool' : 'var'}
                             </span>
                             {opt}
-                            {selectedOption === opt && <div className="absolute inset-0 bg-boto-500/5 animate-pulse"></div>}
+                        {selectedOption === opt && <div className={`absolute inset-0 ${isCyber ? 'bg-[#69d5ff]/20' : 'bg-boto-500/5'} animate-pulse`}></div>}
                         </button>
                     ))}
                 </div>
@@ -279,16 +280,16 @@ const LessonPage = () => {
                      <p className="text-slate-400 mb-4 font-mono text-sm text-center">Reorder logic blocks:</p>
                      {orderState.map((block, idx) => (
                          <motion.div 
-                           layout
-                           key={block} 
-                           className="flex items-stretch bg-slate-900 rounded border border-slate-700 overflow-hidden group hover:border-slate-600"
+                         layout
+                         key={block} 
+                         className={`flex items-stretch rounded border overflow-hidden group ${isCyber ? 'bg-white border-[#cadaf0] hover:border-[#69d5ff]' : 'bg-slate-900 border border-slate-700 hover:border-slate-600'}`}
                          >
-                             <div className="flex flex-col bg-slate-800 border-r border-slate-700 w-10">
-                                 <button onClick={() => moveItem(idx, -1)} className="flex-1 hover:bg-slate-700 text-slate-400 flex items-center justify-center">▲</button>
-                                 <button onClick={() => moveItem(idx, 1)} className="flex-1 hover:bg-slate-700 text-slate-400 flex items-center justify-center">▼</button>
+                         <div className={`flex flex-col w-10 ${isCyber ? 'bg-[#f0f7ff] border-r border-[#cadaf0]' : 'bg-slate-800 border-r border-slate-700'}`}>
+                           <button onClick={() => moveItem(idx, -1)} className={`flex-1 flex items-center justify-center ${isCyber ? 'text-[#0077c8] hover:bg-[#e3f2ff]' : 'text-slate-400 hover:bg-slate-700'}`}>▲</button>
+                           <button onClick={() => moveItem(idx, 1)} className={`flex-1 flex items-center justify-center ${isCyber ? 'text-[#0077c8] hover:bg-[#e3f2ff]' : 'text-slate-400 hover:bg-slate-700'}`}>▼</button>
                              </div>
-                             <div className="p-4 flex-1 font-mono text-tech-purple text-sm flex items-center">
-                                 <span className="text-slate-600 mr-4 select-none">{idx + 1}</span>
+                         <div className={`p-4 flex-1 font-mono text-sm flex items-center ${isCyber ? 'text-[#1b2a3a]' : 'text-tech-purple'}`}>
+                           <span className={`${isCyber ? 'text-[#9ab0c8]' : 'text-slate-600'} mr-4 select-none`}>{idx + 1}</span>
                                  {block}
                              </div>
                          </motion.div>

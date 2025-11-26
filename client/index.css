@@ -3,21 +3,23 @@
 }
 
 .porto-panel {
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 55%),
-              linear-gradient(45deg, rgba(0,0,0,0.12), transparent 60%),
-              #8d6e63;
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), transparent 65%),
+              linear-gradient(35deg, rgba(255,196,149,0.25), transparent 60%),
+              #fff6eb;
   position: relative;
   overflow: hidden;
-  color: #3e2723;
+  color: #1f2f3c;
+  border-radius: 1.25rem;
 }
 
 .porto-panel::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
-  opacity: 0.25;
-  mix-blend-mode: overlay;
+  background-image: linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(0deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -25,12 +27,12 @@
   width: 6px;
   height: 6px;
   border-radius: 9999px;
-  background: rgba(62, 39, 35, 0.6);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+  background: rgba(22, 48, 73, 0.25);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.6);
 }
 
 .font-porto {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 .pixel-frame {
@@ -65,25 +67,30 @@
   position: relative;
   overflow: hidden;
   white-space: pre-wrap;
-  animation: typing 2s steps(36, end) forwards;
+  width: 100%;
+  min-height: 120px;
+  animation: holoReveal 0.8s ease-out;
 }
 
 .typing-effect::after {
   content: "";
   position: absolute;
-  right: 0;
-  width: 1px;
-  height: 100%;
+  right: 1.5rem;
+  bottom: 1rem;
+  width: 2px;
+  height: 18px;
   background-color: currentColor;
   animation: blink 0.8s steps(1, end) infinite;
 }
 
-@keyframes typing {
+@keyframes holoReveal {
   from {
-    width: 0;
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
   }
   to {
-    width: 100%;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 

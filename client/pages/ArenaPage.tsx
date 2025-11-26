@@ -616,16 +616,16 @@ const ArenaPage: React.FC = () => {
 
   const themeConfig = useMemo(() => ({
     cyber: {
-      bg: 'bg-background font-porto text-[#ffe9cc]',
+      bg: 'bg-background font-porto text-[#f6efe4]',
       grid: 'grid-cols-3 gap-4',
-      nodeShape: 'rounded-2xl border-4 border-[#1b3648] porto-panel',
+      nodeShape: 'rounded-[28px] border border-[#e6ccb0] bg-[#fff4e4] backdrop-blur shadow-[0_18px_36px_rgba(140,98,57,0.15)]',
       nodeColors: {
-        SOURCE: 'bg-[#2a4a64] border-[#58a6d8] shadow-[0_12px_24px_rgba(0,0,0,0.3)]',
-        EMPTY: 'bg-[#17384c]/60 border-[#102635] border-dashed border-2',
-        BUILT: 'bg-[#2a4a64]/70 border-[#fcbf49]/40',
-        SEEDED: 'bg-[#2a4a64]/80 border-[#fcbf49]',
-        ACTIVE: 'bg-[#58a6d8] border-[#fcbf49] shadow-[0_15px_28px_rgba(88,166,216,0.45)]',
-        CONVERTED: 'bg-[#fcbf49] border-[#ffe4a0] shadow-[0_18px_32px_rgba(252,191,73,0.45)]',
+        SOURCE: 'bg-gradient-to-br from-[#fff0d8] to-[#ffe0ba] border border-[#e0b47e] text-[#1f2f3c]',
+        EMPTY: 'bg-[#fff9f1] border border-dashed border-[#e6d5c3] text-[#b79f89]',
+        BUILT: 'bg-gradient-to-br from-[#ffe8c1] to-[#ffd59c] border border-[#e3b060] text-[#2e2118]',
+        SEEDED: 'bg-gradient-to-br from-[#fff4ce] to-[#f5e49f] border border-[#d4b85c] text-[#2b230f]',
+        ACTIVE: 'bg-gradient-to-br from-[#d7f2ff] to-[#8ed3ff] border border-[#3b9fd9] text-[#07304d] shadow-[0_18px_32px_rgba(59,159,217,0.35)]',
+        CONVERTED: 'bg-gradient-to-br from-[#3ec6b5] via-[#1da8a0] to-[#0a7e79] border border-[#066461] text-white shadow-[0_20px_40px_rgba(6,100,97,0.35)]',
       },
       labels: { MATERIAL: 'MADEIRA', SEED: 'MUDAS', ENERGY: 'ENERGIA' },
       icons: { MATERIAL: Database, SEED: Sprout, ENERGY: Zap },
@@ -737,29 +737,29 @@ const ArenaPage: React.FC = () => {
 
       <div className="flex justify-between items-end mb-4 px-3">
         <div className="flex space-x-4">
-          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#fcbf49]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ff6347]'}`}>
-            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>SCORE</span>
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#c26f21]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ff6347]'}`}>
+            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>SCORE</span>
             <span className="text-2xl font-bold">{score}</span>
           </div>
-          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#58a6d8]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#8ea4ff]'}`}>
-            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>PPS</span>
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#a8572c]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#8ea4ff]'}`}>
+            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>PPS</span>
             <span className="text-xl font-bold">{pps.toFixed(1)}</span>
           </div>
-          <div className={`flex flex-col transition-transform duration-300 ${shardPulse ? 'scale-110' : ''} ${theme === 'cyber' ? 'text-[#ffe0a3]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ffcf4a]'}`}>
-            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
+          <div className={`flex flex-col transition-transform duration-300 ${shardPulse ? 'scale-110' : ''} ${theme === 'cyber' ? 'text-[#e07a3f]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ffcf4a]'}`}>
+            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>
               <Sparkles className="w-3 h-3" />
               <span>SHARDS</span>
             </div>
             <span className="text-xl font-bold">{shards}</span>
           </div>
-          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#58a6d8]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#ffcf4a]'}`}>
-            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#a8572c]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#ffcf4a]'}`}>
+            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>
               <InfinityIcon className="w-3 h-3" />
               <span>FLOW</span>
             </div>
             <span className="text-xl font-bold">{passiveRateDisplay}/tick</span>
             {convertedCount > 0 && (
-              <span className={`text-[9px] ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>{convertedCount} nodes</span>
+              <span className={`text-[9px] ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>{convertedCount} nodes</span>
             )}
           </div>
         </div>
@@ -768,7 +768,7 @@ const ArenaPage: React.FC = () => {
             setTutorialStep(0);
             setShowTutorial(true);
           }}
-          className={`${theme === 'cyber' ? 'text-[#d4e8f6] hover:text-white' : 'text-slate-400 hover:text-white'}`}
+          className={`${theme === 'cyber' ? 'text-[#7a5637] hover:text-[#c26f21]' : 'text-slate-400 hover:text-white'}`}
         >
           <HelpCircle size={20} />
         </button>
@@ -778,16 +778,16 @@ const ArenaPage: React.FC = () => {
         ? 'bg-[#20123b] border-4 border-[#ff4081] shadow-[6px_6px_0px_rgba(0,0,0,0.6)] pixel-scanlines'
         : theme === 'sport'
         ? 'bg-[#0f1b3a] border-b-4 border-[#ff6347] -skew-x-12 shadow-[0_12px_24px_rgba(0,0,0,0.35)]'
-        : 'porto-panel border-4 border-[#17384c] rounded-2xl'
+        : 'rounded-2xl border border-[#e6ccb0] bg-[#fff4e4] backdrop-blur shadow-[0_18px_34px_rgba(120,90,50,0.18)]'
       }`}>
         {RESOURCE_ORDER.map((resource) => (
           <div key={resource} className={`flex items-center space-x-2 ${theme === 'sport' ? 'skew-x-12' : ''}`}>
-            <div className={`p-1.5 rounded ${theme === 'cyber' ? 'bg-[#17384c] text-[#fcbf49]' : theme === 'game' ? 'bg-black text-[#00ff8c]' : 'bg-[#101a33] text-[#ffcf4a]'}`}>
+            <div className={`p-1.5 rounded ${theme === 'cyber' ? 'bg-[#ffe8cf] text-[#1f3d5c]' : theme === 'game' ? 'bg-black text-[#00ff8c]' : 'bg-[#101a33] text-[#ffcf4a]'}`}>
               {ResourceIcon(resource)}
             </div>
             <div className="flex flex-col">
-              <span className={`text-[9px] opacity-60 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/70'}`}>{themeConfig.labels[resource]}</span>
-              <span className="text-lg font-bold leading-none">{resources[resource]}</span>
+              <span className={`text-[9px] opacity-60 ${theme === 'cyber' ? 'text-[#1e2d3d]' : 'text-white/70'}`}>{themeConfig.labels[resource]}</span>
+              <span className={`text-lg font-bold leading-none ${theme === 'cyber' ? 'text-[#1f2f3c]' : ''}`}>{resources[resource]}</span>
             </div>
           </div>
         ))}
@@ -795,11 +795,11 @@ const ArenaPage: React.FC = () => {
 
       <div className="px-3 mb-5">
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center space-x-2 text-amber-200">
+          <div className={`flex items-center space-x-2 ${theme === 'cyber' ? 'text-[#0077c8]' : 'text-amber-200'}`}>
             <Sparkles className="w-4 h-4" />
             <span className="text-xs tracking-wide font-mono">SHARD FORGE</span>
           </div>
-          <span className="text-[10px] text-slate-400 font-mono">Use shards para desbloquear upgrades.</span>
+          <span className={`text-[10px] font-mono ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-slate-400'}`}>Use shards para desbloquear upgrades.</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {ARENA_UPGRADES.map(upgrade => {
@@ -811,8 +811,14 @@ const ArenaPage: React.FC = () => {
                 key={upgrade.id}
                 onClick={() => handleUpgradePurchase(upgrade)}
                 disabled={unlocked}
-                className={`relative group text-left p-3 rounded-lg border transition-all duration-300 ${
-                  unlocked
+                className={`relative group text-left p-3 rounded-2xl border transition-all duration-300 ${
+                  theme === 'cyber'
+                    ? unlocked
+                      ? 'bg-[#fff1da] border-[#f2c28c] text-[#3c291d] shadow-[0_12px_30px_rgba(96,61,26,0.18)]'
+                      : affordable
+                      ? 'bg-[#fff9ef] border-[#e6c8a5] hover:border-[#f3a953] hover:-translate-y-0.5'
+                      : 'bg-[#fef4e7] border-[#efddcb] text-[#bca48a] cursor-not-allowed'
+                    : unlocked
                     ? 'bg-boto-500/20 border-boto-400/60 text-white shadow-[0_0_15px_rgba(6,182,212,0.3)]'
                     : affordable
                     ? 'bg-surface/60 border-boto-500/40 hover:border-boto-500 hover:bg-boto-500/10'
@@ -820,17 +826,17 @@ const ArenaPage: React.FC = () => {
                 }`}
               >
                 <div className="flex items-center space-x-2 mb-2">
-                  <div className={`p-2 rounded-full ${unlocked ? 'bg-boto-500/30' : 'bg-black/40'}`}>
+                  <div className={`p-2 rounded-full ${theme === 'cyber' ? 'bg-[#fff0dc]' : unlocked ? 'bg-boto-500/30' : 'bg-black/40'}`}>
                     <Icon size={16} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide">{upgrade.label}</p>
-                    <p className="text-[10px] text-slate-400">Custo: {upgrade.cost} shards</p>
+                    <p className={`text-xs font-semibold uppercase tracking-wide ${theme === 'cyber' ? 'text-[#3c291d]' : ''}`}>{upgrade.label}</p>
+                    <p className={`text-[10px] ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-slate-400'}`}>Custo: {upgrade.cost} shards</p>
                   </div>
                 </div>
-                <p className="text-[11px] leading-relaxed text-slate-300 font-mono">{upgrade.description}</p>
+                <p className={`text-[11px] leading-relaxed font-mono ${theme === 'cyber' ? 'text-[#5b4632]' : 'text-slate-300'}`}>{upgrade.description}</p>
                 {unlocked && (
-                  <span className="absolute top-2 right-2 text-[10px] font-mono text-boto-200">ATIVO</span>
+                  <span className={`absolute top-2 right-2 text-[10px] font-mono ${theme === 'cyber' ? 'text-[#f29b4b]' : 'text-boto-200'}`}>ATIVO</span>
                 )}
               </button>
             );
@@ -905,14 +911,14 @@ const ArenaPage: React.FC = () => {
         </div>
       </div>
 
-      <div className={`flex flex-col h-72 overflow-hidden transition-all relative z-40 ${
+        <div className={`flex flex-col h-72 overflow-hidden transition-all relative z-40 ${
         theme === 'game'
           ? 'bg-[#120822] border-t-4 border-[#ff4081] pixel-scanlines'
           : theme === 'sport'
           ? 'bg-[#0f1b3a] border-t-4 border-[#ff6347]'
-          : 'porto-panel border-t-4 border-[#17384c] rounded-t-3xl'
+          : 'bg-[#fff5e8] border-t border-[#e6ccb0] rounded-t-3xl shadow-[0_-12px_35px_rgba(96,61,26,0.15)]'
       }`}>
-        <div className={`flex items-center justify-between p-2 ${theme === 'game' ? 'border-b-2 border-[#ff4081] bg-[#1b0f33]' : theme === 'sport' ? 'border-b-4 border-[#ff6347] bg-[#10203d] -skew-x-6' : 'border-b-2 border-[#17384c] bg-[#17384c]/60 rounded-t-3xl'}`}>
+        <div className={`flex items-center justify-between p-2 ${theme === 'game' ? 'border-b-2 border-[#ff4081] bg-[#1b0f33]' : theme === 'sport' ? 'border-b-4 border-[#ff6347] bg-[#10203d] -skew-x-6' : 'border-b border-[#e6ccb0] bg-[#fff0dc] rounded-t-3xl'}`}>
           <div className="flex space-x-2">
             <Button
               size="sm"
@@ -924,7 +930,7 @@ const ArenaPage: React.FC = () => {
               <span>{isRunning ? 'STOP' : 'RUN'}</span>
             </Button>
 
-            <div className={`flex rounded p-0.5 ${theme === 'cyber' ? 'bg-[#17384c] border border-[#58a6d8]/40' : theme === 'game' ? 'bg-black border border-[#ff4081]' : 'bg-[#10203d] border border-[#2979ff]'}`}>
+            <div className={`flex rounded p-0.5 ${theme === 'cyber' ? 'bg-[#fff5e8] border border-[#e6ccb0]' : theme === 'game' ? 'bg-black border border-[#ff4081]' : 'bg-[#10203d] border border-[#2979ff]'}`}>
               <button
                 onClick={() => handleViewSwitch('VISUAL')}
                 className={`p-1.5 rounded ${viewMode === 'VISUAL' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
@@ -939,7 +945,7 @@ const ArenaPage: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className={`text-[10px] font-mono ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
+          <div className={`text-[10px] font-mono ${theme === 'cyber' ? 'text-[#6c4a2b]' : 'text-white/60'}`}>
             {viewMode === 'CODE' ? 'TEXT_MODE' : `BLOCKS: ${script.length}`}
           </div>
         </div>
@@ -953,7 +959,11 @@ const ArenaPage: React.FC = () => {
                     key={instr.id}
                     className={`flex items-center justify-between px-2 py-1.5 rounded text-xs font-mono border transition-all ${
                       idx === currentLine && isRunning
-                        ? 'bg-boto-500 text-slate-900 border-white scale-105 shadow-lg'
+                        ? theme === 'cyber'
+                          ? 'bg-[#00b3ff]/15 border-[#00b3ff] text-[#00507d] scale-[1.02] shadow-[0_8px_18px_rgba(0,179,255,0.25)]'
+                          : 'bg-boto-500 text-slate-900 border-white scale-105 shadow-lg'
+                        : theme === 'cyber'
+                        ? 'bg-[#fff8ef] border-[#e6ccb0] text-[#3c291d]'
                         : 'bg-slate-800 border-slate-700 text-slate-300'
                     }`}
                   >
@@ -964,7 +974,7 @@ const ArenaPage: React.FC = () => {
                         <button
                           disabled={isRunning}
                           onClick={() => handleCycleTarget(instr.id)}
-                          className={`px-1 py-0.5 border rounded ${isRunning ? 'opacity-30' : 'hover:border-boto-500'} ${theme === 'game' ? 'border-white text-yellow-400' : 'border-slate-600 text-yellow-300'}`}
+                          className={`px-1 py-0.5 border rounded ${isRunning ? 'opacity-30' : 'hover:border-boto-500'} ${theme === 'game' ? 'border-white text-yellow-400' : theme === 'cyber' ? 'border-[#cadaf0] text-[#0077c8]' : 'border-slate-600 text-yellow-300'}`}
                         >
                           #{instr.target}
                         </button>
@@ -973,7 +983,7 @@ const ArenaPage: React.FC = () => {
                         <button
                           disabled={isRunning}
                           onClick={() => handleCycleResource(instr.id)}
-                          className={`px-1 py-0.5 border rounded ${isRunning ? 'opacity-30' : 'hover:border-boto-500'} ${theme === 'game' ? 'border-white text-green-300' : 'border-slate-600 text-green-300'}`}
+                          className={`px-1 py-0.5 border rounded ${isRunning ? 'opacity-30' : 'hover:border-boto-500'} ${theme === 'game' ? 'border-white text-green-300' : theme === 'cyber' ? 'border-[#cadaf0] text-[#00aa9b]' : 'border-slate-600 text-green-300'}`}
                         >
                           {instr.resource}
                         </button>
@@ -994,7 +1004,7 @@ const ArenaPage: React.FC = () => {
                 )}
               </div>
               {!isRunning && (
-                <div className="w-28 bg-black/25 border-l border-white/10 p-2 space-y-2 overflow-y-auto">
+                <div className={`w-28 p-2 space-y-2 overflow-y-auto ${theme === 'cyber' ? 'bg-[rgba(255,245,232,0.9)] border-l border-[#e6ccb0]' : 'bg-black/25 border-l border-white/10'}`}>
                   {[
                     { cmd: 'GOTO' as const, label: 'GOTO', color: 'bg-blue-900/50 text-blue-300' },
                     { cmd: 'HARVEST' as const, label: 'HARVEST', color: 'bg-green-900/40 text-green-300' },
@@ -1007,7 +1017,7 @@ const ArenaPage: React.FC = () => {
                     <button
                       key={option.cmd}
                       onClick={() => handleAddInstruction(option.cmd)}
-                      className={`w-full text-[9px] py-2 rounded border border-white/10 ${option.color} hover:brightness-125 transition`}
+                      className={`w-full text-[9px] py-2 rounded border ${theme === 'cyber' ? 'border-[#e6ccb0] bg-[#fff6eb] text-[#3c291d] hover:border-[#f3a953]' : 'border-white/10'} ${theme === 'cyber' ? '' : option.color} hover:brightness-125 transition`}
                     >
                       {option.label}
                     </button>
@@ -1034,7 +1044,7 @@ const ArenaPage: React.FC = () => {
           )}
         </div>
 
-        <div className={`h-9 p-1 px-2 text-[10px] font-mono flex items-center border-t ${theme === 'cyber' ? 'bg-[#102635] text-[#fcbf49] border-[#17384c]' : theme === 'game' ? 'bg-black text-[#00ff8c] border-[#ff4081]' : 'bg-[#0f1b3a] text-[#ffcf4a] border-[#ff6347]'}`}>
+        <div className={`h-9 p-1 px-2 text-[10px] font-mono flex items-center border-t ${theme === 'cyber' ? 'bg-[#fff0dc] text-[#c26f21] border-[#e6ccb0]' : theme === 'game' ? 'bg-black text-[#00ff8c] border-[#ff4081]' : 'bg-[#0f1b3a] text-[#ffcf4a] border-[#ff6347]'}`}>
           <span className="mr-2 opacity-50">$</span>
           <span className="truncate uppercase tracking-[0.2em]">{logs[0]}</span>
         </div>

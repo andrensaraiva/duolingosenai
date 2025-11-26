@@ -24,25 +24,25 @@ const ProfilePage = () => {
   };
 
   const themes: { id: ThemeId; label: string; icon: React.ElementType; color: string }[] = [
-    { id: 'cyber', label: 'PORTO', icon: Monitor, color: '#FFCA28' },
+    { id: 'cyber', label: 'PORTO', icon: Monitor, color: '#0077c8' },
     { id: 'game', label: 'GAMES', icon: Gamepad2, color: '#ff4081' },
     { id: 'sport', label: 'ESPORTES', icon: Trophy, color: '#ff6347' },
   ];
 
   const themeStyles = {
     cyber: {
-      layout: 'bg-background text-[#3E2723] font-porto',
-      header: 'porto-panel border-b-4 border-[#5D4037]',
-      headerButton: 'p-2 text-[#3E2723] hover:text-[#BF360C] hover:bg-[#FFECB3] rounded-lg transition-colors',
-      title: 'text-[#BF360C]',
-      preview: 'bg-[#D7CCC8] border-4 border-[#8D6E63] rounded-3xl p-8 mb-8 flex flex-col items-center justify-center relative overflow-hidden shadow-[0_18px_35px_rgba(93,64,55,0.35)] min-h-[300px]',
-      badge: 'bg-[#8D6E63] border border-[#5D4037] text-[#FFECB3]',
-      sectionLabel: 'text-[#5D4037]',
-      optionBase: 'bg-[#F5E6DE] border border-[#D7CCC8] text-[#5D4037]',
-      optionActive: 'border-2 border-[#FFCA28] bg-[#FFE0B2] shadow-[0_12px_24px_rgba(255,202,40,0.35)]',
-      circleActive: 'border-[#FFCA28] shadow-[0_0_12px_rgba(255,202,40,0.35)]',
-      footer: 'bg-[#8D6E63] border-t-4 border-[#5D4037] porto-panel',
-      save: 'bg-[#FFCA28] border border-[#FFB300] text-[#BF360C] font-porto',
+      layout: 'bg-background text-[#1b2a3a] font-porto',
+      header: 'bg-white/95 border-b border-[#cadaf0] shadow-sm',
+      headerButton: 'p-2 text-[#5f7d9a] hover:text-[#0077c8] hover:bg-[#e6f3ff] rounded-lg transition-colors',
+      title: 'text-[#0077c8]',
+      preview: 'bg-white/95 border border-[#cadaf0] rounded-3xl p-8 mb-8 flex flex-col items-center justify-center relative overflow-hidden shadow-[0_25px_50px_rgba(12,55,95,0.2)] min-h-[300px]',
+      badge: 'bg-[#e6f2ff] border border-[#cadaf0] text-[#0077c8]',
+      sectionLabel: 'text-[#5f7d9a]',
+      optionBase: 'bg-white border border-[#cadaf0] text-[#1b2a3a]',
+      optionActive: 'border-2 border-[#69d5ff] bg-[#e6f7ff] shadow-[0_12px_28px_rgba(0,119,200,0.18)]',
+      circleActive: 'border-[#69d5ff] shadow-[0_0_16px_rgba(0,179,255,0.45)]',
+      footer: 'bg-white/95 border-t border-[#cadaf0] shadow-[0_-10px_30px_rgba(12,55,95,0.12)]',
+      save: 'bg-[#0077c8] border border-[#0063a6] text-white font-porto',
     },
     game: {
       layout: "bg-background text-white font-['Press_Start_2P']",

@@ -22,7 +22,7 @@ const App = () => {
   return (
     <AppDataProvider>
       <HashRouter>
-        <div className="antialiased text-slate-900 bg-white min-h-screen">
+        <div className="antialiased text-slate-900 bg-background theme-grid-bg min-h-screen">
           <Routes>
             {/* Main Routes with Navigation */}
             <Route element={<MainLayout />}>

@@ -7,34 +7,32 @@ const PlayerHud = () => {
   const { user } = useAppData();
   const theme = user.activeTheme;
 
-  // --- THEME 1: PORTO (madeira e mar) ---
+  // --- THEME 1: PORTO (tech porto) ---
   if (theme === 'cyber') {
     return (
       <header className="fixed top-0 left-0 right-0 z-40 pointer-events-none">
         <div className="max-w-md mx-auto pt-4 px-4 pointer-events-auto">
-          <div className="relative h-16 rounded-2xl border-4 border-[#5D4037] porto-panel flex items-center justify-between px-4 text-[#3E2723] shadow-[0_12px_30px_rgba(93,64,55,0.35)]">
-            <span className="porto-rivet absolute left-3 top-3"></span>
-            <span className="porto-rivet absolute right-3 top-3"></span>
-            <span className="porto-rivet absolute left-3 bottom-3"></span>
-            <span className="porto-rivet absolute right-3 bottom-3"></span>
-
-            <div className="flex items-center gap-3">
-              <div className="bg-[#F5E6DE] border border-[#8D6E63] rounded-lg px-3 py-1 flex items-center gap-2 shadow-inner">
-                <Zap className="w-4 h-4 text-[#BF360C]" />
-                <span className="font-semibold text-sm tracking-wide">{user.streak}º DIA</span>
+          <div className="relative h-16 rounded-2xl border border-[#e6ccb0] bg-[#fff5e8] backdrop-blur flex items-center justify-between px-4 text-[#3b2a1e] shadow-[0_15px_35px_rgba(96,61,26,0.18)]">
+            <div className="flex items-center gap-2">
+              <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#fff1da] to-[#ffdcb4] border border-[#e6ccb0] flex items-center justify-center text-[#c26f21] shadow-inner">
+                <Zap className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[11px] tracking-[0.2em] text-[#8b6a4d] uppercase">Streak</span>
+                <span className="font-semibold text-lg text-[#c26f21]">{user.streak}º dia</span>
               </div>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 bg-[#F5E6DE] border border-[#8D6E63] rounded-xl px-3 py-1 shadow-inner">
-                <Coins className="w-4 h-4 text-[#BF360C]" />
-                <span className="font-bold text-base">{user.coins}</span>
+              <div className="flex items-center gap-2 rounded-2xl border border-[#e6ccb0] bg-[#fff9f0] px-3 py-2 shadow-[inset_0_2px_6px_rgba(128,83,36,0.08)]">
+                <Coins className="w-4 h-4 text-[#f48c35]" />
+                <span className="font-semibold text-base text-[#3b2a1e]">{user.coins}</span>
               </div>
-              <div className="flex items-center gap-1 bg-[#F5E6DE] border border-[#8D6E63] rounded-xl px-3 py-1 shadow-inner">
+              <div className="flex items-center gap-1 rounded-2xl border border-[#e6ccb0] bg-[#fff9f0] px-3 py-1.5 shadow-[inset_0_2px_6px_rgba(128,83,36,0.08)]">
                 {Array.from({ length: user.maxHearts }).map((_, index) => (
                   <Heart
                     key={index}
-                    className={`w-3.5 h-3.5 ${index < user.hearts ? 'text-[#EF5350] fill-[#EF5350]' : 'text-[#BCAAA4]'} transition-colors`}
+                    className={`w-4 h-4 ${index < user.hearts ? 'text-[#ff7a45] fill-[#ff7a45]' : 'text-[#e7c9a8]'}`}
                   />
                 ))}
               </div>

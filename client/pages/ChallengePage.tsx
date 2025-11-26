@@ -40,17 +40,17 @@ const ChallengePage = () => {
 
   const themeStyles = {
     cyber: {
-      layout: 'bg-background text-[#3E2723] font-porto',
-      toolbar: 'porto-panel border-b-4 border-[#5D4037]',
-      icon: 'text-[#3E2723] hover:text-[#BF360C]',
-      actionBtn: 'bg-[#F5E6DE] p-2 rounded border border-[#8D6E63] hover:bg-[#FFECB3]',
-      editorBg: 'bg-[#FFF3E0]',
-      textarea: 'text-[#BF360C]',
-      snippetStrip: 'bg-[#F5E6DE] border-t border-[#8D6E63]',
-      snippet: 'bg-[#FFECB3] border border-[#8D6E63] text-[#5D4037] hover:border-[#FFB300]',
-      console: 'bg-[#F5E6DE] border-t border-[#8D6E63]',
-      consoleHeader: 'bg-[#8D6E63] text-[#FFECB3]',
-      simulateBtn: 'bg-[#FFCA28] border-[#FFB300] text-[#BF360C]',
+      layout: 'bg-background text-[#1b2a3a] font-porto',
+      toolbar: 'bg-white/95 border-b border-[#cadaf0] shadow-sm',
+      icon: 'text-[#5f7d9a] hover:text-[#0077c8]',
+      actionBtn: 'bg-white/90 p-2 rounded-xl border border-[#cadaf0] hover:border-[#69d5ff]',
+      editorBg: 'bg-white',
+      textarea: 'text-[#1b2a3a]',
+      snippetStrip: 'bg-white border-t border-[#cadaf0]',
+      snippet: 'bg-[#f0f7ff] border border-[#cadaf0] text-[#1b2a3a] hover:border-[#69d5ff]',
+      console: 'bg-white border-t border-[#cadaf0]',
+      consoleHeader: 'bg-[#e6f2ff] text-[#1b2a3a]',
+      simulateBtn: 'bg-[#0077c8] border-[#0063a6] text-white',
     },
     game: {
       layout: "bg-background text-white font-['Press_Start_2P']",
@@ -97,7 +97,7 @@ const ChallengePage = () => {
        {/* Editor Area */}
        <div className="flex-1 flex flex-col relative">
            <div className={`flex-1 ${themeStyles.editorBg} p-4 font-mono text-sm overflow-auto`}
-             style={{ boxShadow: theme === 'cyber' ? 'inset 0 0 30px rgba(0,0,0,0.45)' : undefined }}>
+             style={{ boxShadow: theme === 'cyber' ? 'inset 0 0 0 rgba(0,0,0,0)' : undefined }}>
                <textarea 
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
@@ -127,7 +127,7 @@ const ChallengePage = () => {
                {simulating && <span className="animate-pulse text-xs">EXECUTANDO...</span>}
            </div>
            
-           <div className={`flex-1 p-4 font-mono text-xs overflow-auto ${theme === 'cyber' ? 'text-[#5D4037]' : 'text-slate-200'}`}>
+           <div className={`flex-1 p-4 font-mono text-xs overflow-auto ${theme === 'cyber' ? 'text-[#1b2a3a]' : 'text-slate-200'}`}>
                {consoleOutput.map((line, i) => (
                    <div key={i} className="mb-1">{line}</div>
                ))}

@@ -65,18 +65,19 @@
       
       /* Theme 1: PORTO (original) */
       :root, .theme-cyber {
-        --bg-color: 79 195 247;       /* Céu do porto */
-        --surface-color: 215 204 200;  /* Madeira clara */
-        --primary-color: 255 202 40;   /* Dourado porto */
-        --secondary-color: 141 110 99; /* Marrom cais */
-        --accent-color: 93 64 55;      /* Aro madeira */
+        --bg-color: 58 138 196;        /* enseada azul clara */
+        --surface-color: 255 247 236;  /* painéis ensolarados */
+        --primary-color: 0 119 200;    /* azul cais tech */
+        --secondary-color: 255 171 94; /* farol âmbar */
+        --accent-color: 30 48 66;      /* aço naval */
         
         --font-heading: 'Nunito';
         --font-body: 'Nunito';
         
-        --bg-pattern: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 55%),
-                      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 45%),
-                      radial-gradient(circle at 80% 10%, rgba(255,255,255,0.12), transparent 40%);
+        --bg-pattern: radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.28), transparent 58%),
+          radial-gradient(circle at 78% 0%, rgba(147, 216, 255, 0.4), transparent 52%),
+          repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0 14px, transparent 14px 28px),
+          linear-gradient(125deg, rgba(24, 103, 173, 0.55) 0%, rgba(11, 54, 104, 0.45) 68%);
         --bg-size: 280px 280px;
       }
 
@@ -116,8 +117,33 @@
       body {
         font-family: var(--font-body), sans-serif;
         background-color: rgb(var(--bg-color));
-        color: #2d1f18;
+        color: #1b2a3a;
         transition: background-color 0.5s ease, color 0.5s ease;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      body.theme-cyber {
+        color: #f7f0e6;
+        background-image: var(--bg-pattern);
+        background-size: var(--bg-size);
+        background-repeat: repeat;
+        background-blend-mode: screen;
+        background-color: rgb(var(--bg-color));
+      }
+
+      body.theme-cyber::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.22), transparent 55%),
+          radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.16), transparent 50%),
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 10px);
+        opacity: 0.6;
+        mix-blend-mode: soft-light;
+        pointer-events: none;
+        animation: tideShift 18s linear infinite;
       }
       
       h1, h2, h3, .font-tech {
@@ -142,9 +168,9 @@
         left: 50%;
         width: 160%;
         height: 160%;
-        background: radial-gradient(circle at 50% 50%, rgba(52, 152, 219, 0.12), transparent 60%),
-                    repeating-linear-gradient(180deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 12px);
-        opacity: 0.4;
+        background: radial-gradient(circle at 45% 40%, rgba(176, 229, 255, 0.28), transparent 62%),
+                    repeating-linear-gradient(180deg, rgba(255,255,255,0.12) 0 2px, transparent 2px 10px);
+        opacity: 0.45;
         transform: translateX(-50%) translateY(-35%) scaleY(0.8);
         animation: portoWaves 16s linear infinite;
       }
@@ -158,6 +184,18 @@
         }
         100% {
           transform: translateX(-50%) translateY(-35%) scaleY(0.8) rotate(0deg);
+        }
+      }
+
+      @keyframes tideShift {
+        0% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(-4%) translateX(-2%);
+        }
+        100% {
+          transform: translateY(0) translateX(0);
         }
       }
 

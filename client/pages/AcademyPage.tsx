@@ -38,12 +38,10 @@ const AcademyPage = () => {
 
     // Porto Theme: Placas de madeira
     return `
-      w-24 h-28 flex items-center justify-center
-      bg-[#F5E6DE] border-4 border-[#8D6E63] rounded-2xl
-      transition-all duration-300 relative overflow-hidden shadow-[0_16px_25px_rgba(93,64,55,0.25)]
-      ${isCompleted ? 'brightness-110 border-[#FFCA28] shadow-[0_16px_25px_rgba(255,202,40,0.25)]' : 
-      isLocked ? 'opacity-50 saturate-75' : 
-      'after:absolute after:inset-0 after:bg-[url("https://www.transparenttextures.com/patterns/wood-pattern.png")] after:opacity-25 after:pointer-events-none'}
+      w-24 h-28 flex items-center justify-center rounded-[26px]
+      bg-white/95 border border-[#cadaf0] backdrop-blur
+      transition-all duration-300 shadow-[0_18px_40px_rgba(15,60,103,0.18)] relative overflow-hidden
+      ${isCompleted ? 'ring-2 ring-[#6dd7ff]' : isLocked ? 'opacity-60 saturate-75' : 'hover:-translate-y-1'}
     `;
   };
 
@@ -54,11 +52,11 @@ const AcademyPage = () => {
     : 'font-porto';
 
   return (
-    <div className={`pb-28 pt-24 px-4 min-h-screen bg-background relative overflow-hidden transition-colors duration-500 ${containerFont} ${theme === 'cyber' ? 'text-[#3E2723]' : ''}`}>
+    <div className={`pb-28 pt-24 px-4 min-h-screen bg-background relative overflow-hidden transition-colors duration-500 ${containerFont} ${theme === 'cyber' ? 'text-[#1b2a3a]' : ''}`}>
       {theme === 'cyber' && (
-        <div className="porto-wave-container">
-          <div className="porto-wave"></div>
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0b1d2e] via-transparent"></div>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 opacity-60" style={{ background: 'radial-gradient(circle at 20% 20%, rgba(0,165,255,0.18), transparent 45%), linear-gradient(120deg, rgba(255,255,255,0.15), transparent 50%)' }}></div>
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-transparent"></div>
         </div>
       )}
 
@@ -80,14 +78,13 @@ const AcademyPage = () => {
           animate={{ y: 0, opacity: 1 }}
           onClick={() => navigate('/profile')}
           className={`
-            w-full cursor-pointer group
+            w-full cursor-pointer group flex items-center space-x-4
             ${theme === 'game' ? 'bg-[#20123b] border-4 border-[#ff4081] p-4 shadow-[6px_6px_0px_rgba(0,0,0,0.45)] pixel-scanlines' : 
               theme === 'sport' ? 'bg-[#16233f] -skew-x-6 border-l-8 border-[#ff6347] p-5 shadow-[0_12px_25px_rgba(0,0,0,0.35)] text-white' :
-              'porto-panel p-5 rounded-3xl border-4 border-[#5D4037] text-[#3E2723]'}
-             flex items-center space-x-4
+              'rounded-3xl border border-[#cadaf0] bg-white/95 p-5 shadow-[0_20px_50px_rgba(12,55,95,0.15)] backdrop-blur'}
           `}
         >
-           <div className={`w-16 h-16 flex items-center justify-center overflow-hidden relative ${theme === 'cyber' ? 'rounded-2xl bg-[#F5E6DE] border-4 border-[#8D6E63]' : theme === 'game' ? 'border-4 border-white bg-black pixel-frame' : 'rounded-full border-4 border-[#ff6347]/70 bg-[#0f1b3a]'}`}>
+           <div className={`w-16 h-16 flex items-center justify-center overflow-hidden relative ${theme === 'cyber' ? 'rounded-2xl bg-[#e3f2ff] border border-[#cadaf0]' : theme === 'game' ? 'border-4 border-white bg-black pixel-frame' : 'rounded-full border-4 border-[#ff6347]/70 bg-[#0f1b3a]'}`}>
              <BotoAvatar 
                 {...user.customization}
                 size="sm"
@@ -96,16 +93,16 @@ const AcademyPage = () => {
            </div>
            <div className="flex-1">
              <div className="flex justify-between items-center">
-                <span className={`text-xs mb-1 uppercase tracking-[0.35em] ${theme === 'cyber' ? 'text-[#BF360C]' : 'text-white/70'}`}>
+                <span className={`text-xs mb-1 uppercase tracking-[0.35em] ${theme === 'cyber' ? 'text-[#5c7c98]' : 'text-white/70'}`}>
                   {theme === 'game' ? 'PLAYER_1' : theme === 'sport' ? 'ATHLETE' : 'TRIPULAÇÃO'}
                 </span>
-                <span className="text-[10px] bg-white/10 text-slate-300 px-1 rounded">V 1.0</span>
+                <span className={`text-[10px] px-2 rounded ${theme === 'cyber' ? 'bg-[#e7f4ff] text-[#5c7c98]' : 'bg-white/10 text-slate-300'}`}>V 1.0</span>
              </div>
-             <h2 className={`font-bold text-white text-lg ${theme === 'game' ? "font-['Press_Start_2P'] text-xs mt-2 tracking-[0.15em]" : theme === 'sport' ? 'tracking-[0.08em]' : 'text-[#3E2723]'}`}>
+             <h2 className={`font-bold text-white text-lg ${theme === 'game' ? "font-['Press_Start_2P'] text-xs mt-2 tracking-[0.15em]" : theme === 'sport' ? 'tracking-[0.08em]' : 'text-[#1b2a3a]'}`}>
                {user.codename}
              </h2>
-             <div className={`w-full h-2 mt-3 overflow-hidden ${theme === 'game' ? 'bg-black border-2 border-[#00ff8c]' : theme === 'sport' ? 'bg-[#0b142d] border-2 border-[#ff6347]' : 'bg-[#8D6E63] border-2 border-[#5D4037] rounded-full'}`}>
-               <div className={`h-full ${theme === 'game' ? 'bg-[#ffeb3b]' : theme === 'sport' ? 'bg-[#ffcf4a]' : 'bg-gradient-to-r from-[#FFCA28] to-[#F57C00]'} w-3/4`}></div>
+             <div className={`w-full h-2 mt-3 overflow-hidden ${theme === 'game' ? 'bg-black border-2 border-[#00ff8c]' : theme === 'sport' ? 'bg-[#0b142d] border-2 border-[#ff6347]' : 'bg-[#d7e7f5] border border-[#cadaf0] rounded-full'}`}>
+               <div className={`h-full ${theme === 'game' ? 'bg-[#ffeb3b]' : theme === 'sport' ? 'bg-[#ffcf4a]' : 'bg-gradient-to-r from-[#00b7ff] to-[#0077c8]'} w-3/4`}></div>
              </div>
            </div>
         </motion.div>
@@ -127,16 +124,16 @@ const AcademyPage = () => {
                 {/* Connection Line */}
                 {index < lessons.length - 1 && (
                   <div className={`absolute top-14 left-1/2 -translate-x-1/2 h-24 -z-10
-                     ${theme === 'game' ? 'w-4 bg-black border-x-2 border-[#ff4081]' : 
-                     theme === 'sport' ? 'w-1 bg-[#ff6347]' : 
-                     'w-1 bg-[#8D6E63]'}
+                    ${theme === 'game' ? 'w-4 bg-black border-x-2 border-[#ff4081]' : 
+                    theme === 'sport' ? 'w-1 bg-[#ff6347]' : 
+                    'w-1 bg-[#c4d9ec]'}
                   `}>
                         {isCompleted && (
                             <motion.div 
                                 initial={{ height: 0 }}
                                 animate={{ height: '100%' }}
                                 transition={{ duration: 1 }}
-                        className={`w-full ${theme === 'game' ? 'bg-[#ffeb3b]' : theme === 'sport' ? 'bg-[#ffcf4a]' : 'bg-[#FFCA28]'}`}
+                        className={`w-full ${theme === 'game' ? 'bg-[#ffeb3b]' : theme === 'sport' ? 'bg-[#ffcf4a]' : 'bg-[#00b3ff]'}`}
                             />
                         )}
                     </div>
@@ -155,12 +152,12 @@ const AcademyPage = () => {
                         {/* Inner Content */}
                         <div className="z-10 relative">
                             {isCompleted ? (
-                            <Check className={`${theme === 'game' ? 'text-black' : theme === 'sport' ? 'text-[#ffcf4a]' : 'text-[#FFCA28]'} w-8 h-8`} strokeWidth={3} />
+                            <Check className={`${theme === 'game' ? 'text-black' : theme === 'sport' ? 'text-[#ffcf4a]' : 'text-[#00b3ff]'} w-8 h-8`} strokeWidth={3} />
                             ) : isLocked ? (
-                                <Lock className="text-slate-500 w-6 h-6" />
+                              <Lock className={`${theme === 'cyber' ? 'text-[#94adc4]' : 'text-slate-500'} w-6 h-6`} />
                             ) : (
                             theme === 'sport' ? <span className="font-['Russo_One'] text-2xl text-white">{index + 1}</span> :
-                            <Star className={`${theme === 'game' ? 'text-[#ffeb3b] fill-[#ffeb3b]' : 'text-[#FFCA28] fill-[#FFCA28]'} w-8 h-8`} />
+                            <Star className={`${theme === 'game' ? 'text-[#ffeb3b] fill-[#ffeb3b]' : 'text-[#00b3ff] fill-[#00b3ff]'} w-8 h-8`} />
                             )}
                         </div>
                     </div>
@@ -171,7 +168,7 @@ const AcademyPage = () => {
                         whitespace-nowrap px-2 py-1 
                         ${theme === 'game' ? 'bg-black text-white font-["Press_Start_2P"] text-[8px] border border-[#00ff8c] shadow-[2px_2px_0px_rgba(0,0,0,0.6)]' : 
                           theme === 'sport' ? 'bg-[#16233f] text-[#ff6347] font-["Russo_One"] -skew-x-12 uppercase border-l-4 border-[#ffcf4a]' :
-                          'bg-[#8D6E63] border border-[#5D4037] text-[#FFECB3] rounded font-mono text-[10px] shadow-[0_0_15px_rgba(93,64,55,0.25)]'}
+                            'bg-white/90 border border-[#cadaf0] text-[#1b2a3a] rounded font-mono text-[10px] shadow-[0_6px_18px_rgba(15,60,103,0.18)]'}
                     `}>
                         {isCompleted ? 'DONE' : isLocked ? 'LOCKED' : 'START'}
                     </div>
