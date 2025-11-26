@@ -8,91 +8,72 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
+const themeStyles = {
+  cyber: {
+    base: 'relative rounded-2xl font-porto font-semibold tracking-wide overflow-hidden transition-all duration-200 shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-1 active:shadow-none',
+    variants: {
+      primary: 'bg-[#FFCA28] text-[#BF360C] border-b-4 border-r-4 border-[#FF6F00] hover:brightness-110',
+      secondary: 'bg-[#8D6E63] text-[#FFECB3] border-b-4 border-r-4 border-[#5D4037] hover:brightness-105',
+      success: 'bg-[#66BB6A] text-[#1B5E20] border-b-4 border-r-4 border-[#2E7D32]',
+      danger: 'bg-[#EF5350] text-white border-b-4 border-r-4 border-[#C62828]',
+      ghost: 'bg-transparent text-[#3E2723] hover:text-[#BF360C] shadow-none',
+    },
+  },
+  game: {
+    base: 'font-["Press_Start_2P"] text-[10px] uppercase tracking-[0.25em] rounded-none border-4 border-black pixel-shadow transition-none active:translate-y-1 active:translate-x-1 active:shadow-none',
+    variants: {
+      primary: 'bg-[#00FF99] text-black',
+      secondary: 'bg-[#FF00FF] text-white',
+      success: 'bg-[#69F0AE] text-black',
+      danger: 'bg-[#FF4081] text-white',
+      ghost: 'bg-black text-[#00FF99] hover:text-white',
+    },
+  },
+  sport: {
+    base: 'relative font-["Russo_One"] uppercase tracking-[0.18em] sport-skew transition-transform duration-200 shadow-[0_12px_25px_rgba(0,0,0,0.25)] active:scale-95',
+    variants: {
+      primary: 'bg-[#FF5252] text-white border-l-[12px] border-[#B71C1C]',
+      secondary: 'bg-[#2979FF] text-white border-l-[12px] border-[#0D47A1]',
+      success: 'bg-[#26C6DA] text-[#0D47A1] border-l-[12px] border-[#00838F]',
+      danger: 'bg-[#FF7043] text-white border-l-[12px] border-[#BF360C]',
+      ghost: 'bg-transparent text-[#1A237E] border border-[#1A237E]/40 backdrop-blur-sm',
+    },
+  },
+} as const;
+
+const sizeClasses = {
+  sm: 'py-2 px-4 text-xs',
+  md: 'py-3 px-6 text-sm',
+  lg: 'py-4 px-8 text-base',
+};
+
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  size = 'md',
   fullWidth = false,
   className = '',
   disabled,
-  ...props 
+  ...props
 }) => {
   const { user } = useAppData();
   const theme = user.activeTheme;
 
-  // Base styles per theme
-  const themeBaseStyles = {
-    cyber: "rounded-xl font-tech tracking-wider border transition-all duration-300 relative overflow-hidden group hover:shadow-[0_0_15px_rgba(var(--primary-color)/0.5)] active:scale-95",
-    game: "rounded-none font-['Press_Start_2P'] text-xs border-b-4 border-r-4 border-black active:border-0 active:translate-y-1 active:translate-x-1 transition-none",
-    sport: "rounded-sm font-['Russo_One'] transform -skew-x-12 tracking-tight border-b-2 active:skew-x-[-12deg] active:scale-95 transition-transform uppercase"
-  };
-
-  // Variants mapping considering themes
-  const getVariantStyle = () => {
-    // Cyber Styles (Neon & Glass)
-    if (theme === 'cyber') {
-      switch (variant) {
-        case 'primary': return "bg-boto-500/20 border-boto-500 text-boto-500 hover:bg-boto-500 hover:text-slate-900";
-        case 'success': return "bg-green-500/20 border-green-500 text-green-500 hover:bg-green-500 hover:text-slate-900";
-        case 'danger': return "bg-red-500/20 border-red-500 text-red-500 hover:bg-red-500 hover:text-slate-900";
-        case 'secondary': return "bg-surface border-slate-700 text-slate-300 hover:border-slate-500";
-        case 'ghost': return "border-transparent text-slate-400 hover:text-white";
-        default: return "";
-      }
-    }
-    
-    // Game Styles (Solid & Pixel)
-    if (theme === 'game') {
-      switch (variant) {
-        case 'primary': return "bg-boto-500 text-white border-black hover:brightness-110";
-        case 'success': return "bg-green-500 text-white border-black hover:brightness-110";
-        case 'danger': return "bg-red-500 text-white border-black hover:brightness-110";
-        case 'secondary': return "bg-slate-200 text-slate-900 border-black hover:bg-white";
-        case 'ghost': return "bg-transparent border-transparent text-slate-200 hover:text-white border-0 shadow-none";
-        default: return "";
-      }
-    }
-
-    // Sport Styles (Bold & Contrast)
-    if (theme === 'sport') {
-      switch (variant) {
-        case 'primary': return "bg-boto-500 border-boto-700 text-white shadow-lg";
-        case 'success': return "bg-green-600 border-green-800 text-white shadow-lg";
-        case 'danger': return "bg-red-600 border-red-800 text-white shadow-lg";
-        case 'secondary': return "bg-surface border-slate-600 text-slate-200";
-        case 'ghost': return "bg-transparent border-transparent text-slate-400 hover:text-white skew-x-0";
-        default: return "";
-      }
-    }
-    return "";
-  };
-
-  const sizes = {
-    sm: "py-1 px-3 text-xs",
-    md: "py-3 px-6 text-sm",
-    lg: "py-4 px-8 text-base"
-  };
+  const themeConfig = themeStyles[theme];
+  const composedClassName = [
+    themeConfig.base,
+    themeConfig.variants[variant],
+    sizeClasses[size],
+    fullWidth ? 'w-full' : '',
+    className,
+    'disabled:opacity-50 disabled:pointer-events-none',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <button 
-      className={`
-        ${themeBaseStyles[theme]}
-        ${getVariantStyle()} 
-        ${sizes[size]} 
-        ${fullWidth ? 'w-full' : ''}
-        ${className}
-        disabled:opacity-50 disabled:pointer-events-none
-      `}
-      disabled={disabled}
-      {...props}
-    >
-      <span className={theme === 'sport' ? 'block skew-x-12' : ''}>
-        {children}
-      </span>
-      {/* Cyber Glitch Effect on Hover */}
-      {theme === 'cyber' && !disabled && variant === 'primary' && (
-        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
-      )}
+    <button className={composedClassName} disabled={disabled} {...props}>
+      <span className={theme === 'sport' ? 'block skew-x-12' : ''}>{children}</span>
     </button>
   );
 };

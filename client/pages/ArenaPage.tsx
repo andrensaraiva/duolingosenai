@@ -616,48 +616,48 @@ const ArenaPage: React.FC = () => {
 
   const themeConfig = useMemo(() => ({
     cyber: {
-      bg: 'bg-background font-tech text-slate-100',
+      bg: 'bg-background font-porto text-[#ffe9cc]',
       grid: 'grid-cols-3 gap-4',
-      nodeShape: 'clip-path-hexagon',
+      nodeShape: 'rounded-2xl border-4 border-[#1b3648] porto-panel',
       nodeColors: {
-        SOURCE: 'bg-blue-900 border-2 border-boto-500',
-        EMPTY: 'bg-slate-800/50 border border-slate-700 border-dashed',
-        BUILT: 'bg-purple-900/40 border border-purple-500/70',
-        SEEDED: 'bg-green-900/40 border border-green-500/70',
-        ACTIVE: 'bg-boto-500 border-2 border-white shadow-[0_0_20px_rgba(6,182,212,0.6)]',
-        CONVERTED: 'bg-yellow-500 border-2 border-white animate-pulse',
+        SOURCE: 'bg-[#2a4a64] border-[#58a6d8] shadow-[0_12px_24px_rgba(0,0,0,0.3)]',
+        EMPTY: 'bg-[#17384c]/60 border-[#102635] border-dashed border-2',
+        BUILT: 'bg-[#2a4a64]/70 border-[#fcbf49]/40',
+        SEEDED: 'bg-[#2a4a64]/80 border-[#fcbf49]',
+        ACTIVE: 'bg-[#58a6d8] border-[#fcbf49] shadow-[0_15px_28px_rgba(88,166,216,0.45)]',
+        CONVERTED: 'bg-[#fcbf49] border-[#ffe4a0] shadow-[0_18px_32px_rgba(252,191,73,0.45)]',
       },
-      labels: { MATERIAL: 'DATA', SEED: 'ALGO', ENERGY: 'PWR' },
+      labels: { MATERIAL: 'MADEIRA', SEED: 'MUDAS', ENERGY: 'ENERGIA' },
       icons: { MATERIAL: Database, SEED: Sprout, ENERGY: Zap },
     },
     game: {
-      bg: "bg-black text-white font-['Press_Start_2P'] image-pixelated",
+      bg: "bg-background text-white font-['Press_Start_2P'] pixel-scanlines",
       grid: 'grid-cols-3 gap-2',
       nodeShape: 'rounded-none',
       nodeColors: {
-        SOURCE: 'bg-blue-800 border-4 border-white shadow-[4px_4px_0px_black]',
-        EMPTY: 'bg-slate-900 border-4 border-slate-700 border-dashed',
-        BUILT: 'bg-amber-800 border-4 border-white',
-        SEEDED: 'bg-green-700 border-4 border-white',
-        ACTIVE: 'bg-yellow-400 border-4 border-white',
-        CONVERTED: 'bg-purple-600 border-4 border-yellow-400',
+        SOURCE: 'bg-[#1b0f33] border-4 border-[#ff4081] shadow-[4px_4px_0px_rgba(0,0,0,0.7)]',
+        EMPTY: 'bg-[#120822] border-4 border-[#372054] border-dashed',
+        BUILT: 'bg-[#2a1750] border-4 border-[#ffeb3b]',
+        SEEDED: 'bg-[#1f3d2a] border-4 border-[#00ff8c]',
+        ACTIVE: 'bg-[#ffeb3b] border-4 border-[#ff4081]',
+        CONVERTED: 'bg-[#00ff8c] border-4 border-[#ffeb3b]',
       },
       labels: { MATERIAL: 'WOOD', SEED: 'SEED', ENERGY: 'MANA' },
       icons: { MATERIAL: Hammer, SEED: Sprout, ENERGY: Zap },
     },
     sport: {
-      bg: "bg-slate-900 text-white font-['Russo_One'] uppercase",
+      bg: "bg-background text-white font-['Russo_One'] uppercase",
       grid: 'grid-cols-3 gap-6 skew-x-[-6deg]',
       nodeShape: 'rounded-md',
       nodeColors: {
-        SOURCE: 'bg-slate-800 border-l-4 border-orange-500',
-        EMPTY: 'bg-slate-800/30 border border-slate-600',
-        BUILT: 'bg-slate-700 border-l-4 border-blue-500',
-        SEEDED: 'bg-slate-700 border-l-4 border-green-500',
-        ACTIVE: 'bg-orange-600 border-2 border-white scale-[1.03]',
-        CONVERTED: 'bg-red-600 border-4 border-white',
+        SOURCE: 'bg-[#10203d] border-l-8 border-[#ff6347] shadow-[0_12px_24px_rgba(0,0,0,0.35)]',
+        EMPTY: 'bg-[#101a33]/60 border border-[#24406e]',
+        BUILT: 'bg-[#17264a] border-l-8 border-[#2979ff]',
+        SEEDED: 'bg-[#142d38] border-l-8 border-[#4caf50]',
+        ACTIVE: 'bg-[#ff6347] border-4 border-white scale-[1.03]',
+        CONVERTED: 'bg-[#ffcf4a] border-4 border-white',
       },
-      labels: { MATERIAL: 'IRON', SEED: 'FOOD', ENERGY: 'STM' },
+      labels: { MATERIAL: 'FERRO', SEED: 'SUP', ENERGY: 'STM' },
       icons: { MATERIAL: Hammer, SEED: Sprout, ENERGY: Zap },
     },
   })[theme], [theme]);
@@ -737,29 +737,29 @@ const ArenaPage: React.FC = () => {
 
       <div className="flex justify-between items-end mb-4 px-3">
         <div className="flex space-x-4">
-          <div className="flex flex-col text-boto-500">
-            <span className="text-[10px] opacity-70">SCORE</span>
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#fcbf49]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ff6347]'}`}>
+            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>SCORE</span>
             <span className="text-2xl font-bold">{score}</span>
           </div>
-          <div className="flex flex-col text-purple-400">
-            <span className="text-[10px] opacity-70">PPS</span>
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#58a6d8]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#8ea4ff]'}`}>
+            <span className={`text-[10px] opacity-70 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>PPS</span>
             <span className="text-xl font-bold">{pps.toFixed(1)}</span>
           </div>
-          <div className={`flex flex-col text-amber-300 transition-transform duration-300 ${shardPulse ? 'scale-110' : ''}`}>
-            <div className="text-[10px] opacity-70 flex items-center space-x-1">
+          <div className={`flex flex-col transition-transform duration-300 ${shardPulse ? 'scale-110' : ''} ${theme === 'cyber' ? 'text-[#ffe0a3]' : theme === 'game' ? 'text-[#ffeb3b]' : 'text-[#ffcf4a]'}`}>
+            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
               <Sparkles className="w-3 h-3" />
               <span>SHARDS</span>
             </div>
             <span className="text-xl font-bold">{shards}</span>
           </div>
-          <div className="flex flex-col text-cyan-300">
-            <div className="text-[10px] opacity-70 flex items-center space-x-1">
+          <div className={`flex flex-col ${theme === 'cyber' ? 'text-[#58a6d8]' : theme === 'game' ? 'text-[#00ff8c]' : 'text-[#ffcf4a]'}`}>
+            <div className={`text-[10px] opacity-70 flex items-center space-x-1 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
               <InfinityIcon className="w-3 h-3" />
               <span>FLOW</span>
             </div>
             <span className="text-xl font-bold">{passiveRateDisplay}/tick</span>
             {convertedCount > 0 && (
-              <span className="text-[9px] text-white/60">{convertedCount} nodes</span>
+              <span className={`text-[9px] ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>{convertedCount} nodes</span>
             )}
           </div>
         </div>
@@ -768,25 +768,25 @@ const ArenaPage: React.FC = () => {
             setTutorialStep(0);
             setShowTutorial(true);
           }}
-          className="text-slate-500 hover:text-white"
+          className={`${theme === 'cyber' ? 'text-[#d4e8f6] hover:text-white' : 'text-slate-400 hover:text-white'}`}
         >
           <HelpCircle size={20} />
         </button>
       </div>
 
       <div className={`flex justify-around items-center p-3 mb-4 sticky top-16 z-30 ${theme === 'game'
-        ? 'bg-blue-900 border-4 border-white shadow-[4px_4px_0px_black]'
+        ? 'bg-[#20123b] border-4 border-[#ff4081] shadow-[6px_6px_0px_rgba(0,0,0,0.6)] pixel-scanlines'
         : theme === 'sport'
-        ? 'bg-slate-800 border-b-4 border-orange-500 -skew-x-12'
-        : 'bg-surface/80 backdrop-blur rounded-xl border border-boto-500/30'
+        ? 'bg-[#0f1b3a] border-b-4 border-[#ff6347] -skew-x-12 shadow-[0_12px_24px_rgba(0,0,0,0.35)]'
+        : 'porto-panel border-4 border-[#17384c] rounded-2xl'
       }`}>
         {RESOURCE_ORDER.map((resource) => (
           <div key={resource} className={`flex items-center space-x-2 ${theme === 'sport' ? 'skew-x-12' : ''}`}>
-            <div className={`p-1.5 rounded ${theme === 'cyber' ? 'bg-boto-500/20 text-boto-400' : 'bg-black text-white'}`}>
+            <div className={`p-1.5 rounded ${theme === 'cyber' ? 'bg-[#17384c] text-[#fcbf49]' : theme === 'game' ? 'bg-black text-[#00ff8c]' : 'bg-[#101a33] text-[#ffcf4a]'}`}>
               {ResourceIcon(resource)}
             </div>
             <div className="flex flex-col">
-              <span className="text-[9px] opacity-60">{themeConfig.labels[resource]}</span>
+              <span className={`text-[9px] opacity-60 ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/70'}`}>{themeConfig.labels[resource]}</span>
               <span className="text-lg font-bold leading-none">{resources[resource]}</span>
             </div>
           </div>
@@ -907,12 +907,12 @@ const ArenaPage: React.FC = () => {
 
       <div className={`flex flex-col h-72 overflow-hidden transition-all relative z-40 ${
         theme === 'game'
-          ? 'bg-slate-900 border-t-4 border-white'
+          ? 'bg-[#120822] border-t-4 border-[#ff4081] pixel-scanlines'
           : theme === 'sport'
-          ? 'bg-slate-900 border-t-4 border-blue-600'
-          : 'bg-surface/90 border-t border-boto-500/30 rounded-t-2xl backdrop-blur-xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)]'
+          ? 'bg-[#0f1b3a] border-t-4 border-[#ff6347]'
+          : 'porto-panel border-t-4 border-[#17384c] rounded-t-3xl'
       }`}>
-        <div className="flex items-center justify-between p-2 border-b border-white/10 bg-black/20">
+        <div className={`flex items-center justify-between p-2 ${theme === 'game' ? 'border-b-2 border-[#ff4081] bg-[#1b0f33]' : theme === 'sport' ? 'border-b-4 border-[#ff6347] bg-[#10203d] -skew-x-6' : 'border-b-2 border-[#17384c] bg-[#17384c]/60 rounded-t-3xl'}`}>
           <div className="flex space-x-2">
             <Button
               size="sm"
@@ -924,7 +924,7 @@ const ArenaPage: React.FC = () => {
               <span>{isRunning ? 'STOP' : 'RUN'}</span>
             </Button>
 
-            <div className="flex bg-black/30 rounded p-0.5 border border-white/10">
+            <div className={`flex rounded p-0.5 ${theme === 'cyber' ? 'bg-[#17384c] border border-[#58a6d8]/40' : theme === 'game' ? 'bg-black border border-[#ff4081]' : 'bg-[#10203d] border border-[#2979ff]'}`}>
               <button
                 onClick={() => handleViewSwitch('VISUAL')}
                 className={`p-1.5 rounded ${viewMode === 'VISUAL' ? 'bg-slate-600 text-white' : 'text-slate-400'}`}
@@ -939,7 +939,7 @@ const ArenaPage: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className="text-[10px] text-slate-400 font-mono">
+          <div className={`text-[10px] font-mono ${theme === 'cyber' ? 'text-[#d4e8f6]' : 'text-white/60'}`}>
             {viewMode === 'CODE' ? 'TEXT_MODE' : `BLOCKS: ${script.length}`}
           </div>
         </div>
@@ -1034,9 +1034,9 @@ const ArenaPage: React.FC = () => {
           )}
         </div>
 
-        <div className="h-9 bg-black p-1 px-2 text-[10px] font-mono text-green-500 flex items-center border-t border-slate-800">
+        <div className={`h-9 p-1 px-2 text-[10px] font-mono flex items-center border-t ${theme === 'cyber' ? 'bg-[#102635] text-[#fcbf49] border-[#17384c]' : theme === 'game' ? 'bg-black text-[#00ff8c] border-[#ff4081]' : 'bg-[#0f1b3a] text-[#ffcf4a] border-[#ff6347]'}`}>
           <span className="mr-2 opacity-50">$</span>
-          <span className="truncate">{logs[0]}</span>
+          <span className="truncate uppercase tracking-[0.2em]">{logs[0]}</span>
         </div>
       </div>
     </div>

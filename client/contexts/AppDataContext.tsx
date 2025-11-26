@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { User, Lesson, Mission, Challenge, CharacterCustomization, ThemeId } from '../types';
-import { INITIAL_USER } from '../services/mockData';
+import { INITIAL_USER, LESSONS as MOCK_LESSONS, MISSIONS as MOCK_MISSIONS, CHALLENGES as MOCK_CHALLENGES } from '../services/mockData';
 import { api } from '../services/api';
 import {
   buildChallenges,
@@ -89,6 +89,16 @@ export const AppDataProvider = ({ children }: { children?: ReactNode }) => {
       applyThemeClass(clientTheme);
     } catch (error) {
       console.error('Erro ao sincronizar dados do Botocode', error);
+      // Fallback para os dados mockados quando a API não está disponível
+      setLessons(MOCK_LESSONS);
+      setMissions(MOCK_MISSIONS);
+      setChallenges(MOCK_CHALLENGES);
+      setUser((prev) => ({
+        ...prev,
+        ...INITIAL_USER,
+        activeTheme: prev.activeTheme ?? INITIAL_USER.activeTheme,
+        customization: prev.customization ?? INITIAL_USER.customization,
+      }));
     } finally {
       setLoading(false);
     }

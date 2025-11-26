@@ -2,6 +2,56 @@
   color-scheme: dark;
 }
 
+.porto-panel {
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 55%),
+              linear-gradient(45deg, rgba(0,0,0,0.12), transparent 60%),
+              #8d6e63;
+  position: relative;
+  overflow: hidden;
+  color: #3e2723;
+}
+
+.porto-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.porto-rivet {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(62, 39, 35, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+}
+
+.font-porto {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.pixel-frame {
+  box-shadow: 4px 4px 0px #000;
+  border: 4px solid #fff;
+}
+
+.pixel-shadow {
+  box-shadow: 6px 6px 0px rgba(0,0,0,0.9);
+}
+
+.sport-glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent 60%);
+  border-left: 4px solid rgba(255,255,255,0.08);
+  border-right: 4px solid rgba(255,255,255,0.08);
+}
+
+.sport-skew {
+  transform: skewX(-12deg);
+}
+
 .clip-path-hexagon {
   clip-path: polygon(50% 0%, 95% 25%, 95% 75%, 50% 100%, 5% 75%, 5% 25%);
 }

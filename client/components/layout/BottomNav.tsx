@@ -34,9 +34,9 @@ const BottomNav = () => {
   ];
 
   const containerStyles = {
-    cyber: "bg-surface/80 backdrop-blur-lg border-t border-boto-500/30 pb-4 h-20",
-    game: "bg-slate-900 border-t-4 border-white pb-2 h-20",
-    sport: "bg-slate-900 border-t-4 border-boto-500 pb-4 h-20 skew-y-1 origin-bottom-right"
+    cyber: "bg-[#8D6E63]/95 border-t-4 border-[#5D4037] pb-4 h-20 shadow-[0_-10px_30px_rgba(93,64,55,0.45)]",
+    game: "bg-[#160b30] border-t-4 border-[#ff4081] pb-2 h-20 pixel-scanlines",
+    sport: "bg-[#0f1b3a] border-t-4 border-[#ff6347] pb-4 h-20 skew-y-1 origin-bottom-right shadow-[0_-12px_25px_rgba(0,0,0,0.5)]"
   };
 
   return (
@@ -51,20 +51,20 @@ const BottomNav = () => {
               key={item.path} 
               to={item.path} 
               className={`flex flex-col items-center justify-center w-full h-full transition-all duration-200 group relative ${
-                isActive ? 'text-boto-500' : 'text-slate-500 hover:text-boto-300'
+                isActive ? (theme === 'cyber' ? 'text-[#BF360C]' : 'text-boto-500') : theme === 'cyber' ? 'text-[#3E2723] opacity-70 hover:opacity-100' : 'text-slate-500 hover:text-boto-300'
               }`}
             >
               {/* Background Highlight Logic */}
               {isActive && theme === 'cyber' && (
-                <div className="absolute inset-0 bg-boto-500/5 blur-xl"></div>
+                <div className="absolute inset-0 rounded-2xl bg-[#FFCA28]/25 border border-[#FFCA28]/40 shadow-[0_0_20px_rgba(255,202,40,0.45)]"></div>
               )}
               {isActive && theme === 'game' && (
-                 <div className="absolute w-12 h-12 bg-white/10 rounded-none border-2 border-white/20"></div>
+                 <div className="absolute w-12 h-12 bg-[#ffeb3b]/10 border-2 border-[#ffeb3b] shadow-[4px_4px_0px_rgba(0,0,0,0.8)]"></div>
               )}
 
               <div className={`p-1.5 transition-all relative z-10 
-                ${isActive && theme === 'cyber' ? '-translate-y-2' : ''}
-                ${isActive && theme === 'game' ? 'scale-110' : ''}
+                ${isActive && theme === 'cyber' ? '-translate-y-1' : ''}
+                ${isActive && theme === 'game' ? 'scale-125' : ''}
                 ${theme === 'sport' ? '-skew-x-12' : ''}
               `}>
                 <Icon size={theme === 'game' ? 20 : 24} strokeWidth={isActive ? 2.5 : 2} />
@@ -74,7 +74,8 @@ const BottomNav = () => {
               <span className={`
                 text-[10px] mt-1 transition-all duration-300
                 ${theme === 'game' ? "font-['Press_Start_2P'] text-[8px]" : "font-mono"}
-                ${theme === 'sport' ? "font-['Russo_One'] italic uppercase" : ""}
+                ${theme === 'sport' ? "font-['Russo_One'] italic uppercase tracking-widest" : ""}
+                ${theme === 'cyber' ? 'tracking-[0.3em] text-[#3E2723]' : ''}
                 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}
               `}>
                 {item.label}
@@ -82,7 +83,7 @@ const BottomNav = () => {
 
               {/* Active Indicators */}
               {isActive && theme === 'cyber' && (
-                <div className="absolute bottom-2 w-1 h-1 bg-boto-500 rounded-full shadow-[0_0_5px_cyan]"></div>
+                <div className="absolute bottom-1 w-8 h-0.5 bg-[#BF360C] rounded-full"></div>
               )}
               {isActive && theme === 'sport' && (
                 <div className="absolute top-0 w-full h-1 bg-boto-500"></div>

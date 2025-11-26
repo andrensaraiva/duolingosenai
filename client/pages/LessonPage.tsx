@@ -12,6 +12,7 @@ const LessonPage = () => {
   const { lessonId } = useParams();
   const navigate = useNavigate();
   const { lessons, user, loseHeart, completeLesson } = useAppData();
+  const theme = user.activeTheme;
   
   const lesson = lessons.find(l => l.id === lessonId);
   
@@ -90,43 +91,90 @@ const LessonPage = () => {
   };
 
   // Render Completion Overlay - "System Upgrade"
+  const themeStyles = {
+    cyber: {
+      background: 'porto-wave-container',
+      panel: 'porto-panel border-4 border-[#5D4037] rounded-3xl text-[#3E2723]',
+      accent: 'text-[#BF360C]',
+      progress: 'bg-[#FFCA28]',
+      heart: 'text-[#EF5350]',
+      buttonPrimary: 'bg-[#FFCA28] border-2 border-[#FFB300] text-[#BF360C]',
+      buttonSuccess: 'bg-[#2f9364] border-2 border-[#1f6a46] text-[#f4fff9]',
+      buttonDanger: 'bg-[#b23a48] border-2 border-[#7c2631] text-white',
+      footer: 'porto-panel border-t-4 border-[#5D4037] text-[#3E2723]',
+      footerSuccess: 'bg-[#1f6a46] border-t-4 border-[#0f5132] text-[#e2f9ec]',
+      footerDanger: 'bg-[#7c2631] border-t-4 border-[#4d151d] text-white',
+    },
+    game: {
+      background: 'pixel-scanlines',
+      panel: 'bg-[#1b0f33] border-4 border-[#ff4081] rounded-3xl text-white pixel-scanlines',
+      accent: 'text-[#ff4081]',
+      progress: 'bg-[#ff4081]',
+      heart: 'text-[#ffeb3b]',
+      buttonPrimary: 'bg-black border-2 border-[#ff4081] text-[#ffeb3b]',
+      buttonSuccess: 'bg-[#00ff8c] border-2 border-[#00c973] text-black',
+      buttonDanger: 'bg-[#ff4081] border-2 border-[#c21664] text-white',
+      footer: 'bg-[#1b0f33] border-t-4 border-[#ff4081] text-white',
+      footerSuccess: 'bg-[#00c973] border-t-4 border-[#00995a] text-black',
+      footerDanger: 'bg-[#c21664] border-t-4 border-[#7a0d3f] text-white',
+    },
+    sport: {
+      background: 'sport-stripe',
+      panel: 'bg-[#0f1b3a] border-4 border-[#ff6347] rounded-3xl text-white',
+      accent: 'text-[#ff6347]',
+      progress: 'bg-[#ff6347]',
+      heart: 'text-[#ffcf4a]',
+      buttonPrimary: 'bg-[#10203d] border-2 border-[#ff6347] text-[#ffcf4a]',
+      buttonSuccess: 'bg-[#2f9364] border-2 border-[#1f6a46] text-white',
+      buttonDanger: 'bg-[#c62828] border-2 border-[#8e1b1b] text-white',
+      footer: 'bg-[#0f1b3a] border-t-4 border-[#ff6347] text-white',
+      footerSuccess: 'bg-[#1f6a46] border-t-4 border-[#13452e] text-white',
+      footerDanger: 'bg-[#8e1b1b] border-t-4 border-[#540f10] text-white',
+    },
+  }[theme];
+
   if (isCompleted) {
     return (
       <div className="h-screen bg-background flex flex-col items-center justify-center p-6 relative overflow-hidden">
         <div className="absolute inset-0 grid-bg opacity-30"></div>
+        {theme === 'cyber' && (
+          <div className="porto-wave-container">
+            <div className="porto-wave"></div>
+          </div>
+        )}
         <SuccessAnimation />
         
         <motion.div 
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="bg-surface border border-boto-500/50 p-8 rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.15)] flex flex-col items-center max-w-sm w-full z-10 text-center relative"
+          className={`${themeStyles.panel} p-8 shadow-[0_0_30px_rgba(0,0,0,0.25)] flex flex-col items-center max-w-sm w-full z-10 text-center relative`}
         >
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-boto-500 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#fcbf49] to-transparent"></div>
 
           <div className="mb-6 scale-125 relative">
-             <div className="absolute inset-0 bg-boto-500 blur-2xl opacity-20 rounded-full"></div>
+            <div className="absolute inset-0 bg-[#FFCA28] blur-2xl opacity-20 rounded-full"></div>
              <BotoAvatar {...user.customization} emotion="happy" size="lg" />
           </div>
           
-          <h2 className="text-2xl font-tech text-boto-300 mb-2 uppercase tracking-widest">Module Completed</h2>
-          <p className="text-slate-400 font-mono text-sm mb-8">System synchronization successful.</p>
+          <h2 className={`text-2xl font-tech ${themeStyles.accent} mb-2 uppercase tracking-widest`}>Missão Concluída</h2>
+          <p className="text-slate-300 font-mono text-sm mb-8">Progresso registrado no diário do Boto.</p>
           
           <div className="grid grid-cols-2 gap-4 w-full mb-8">
-            <div className="bg-slate-900 border border-slate-700 p-4 rounded-lg flex flex-col items-center">
-              <span className="text-[10px] font-mono text-slate-500 uppercase mb-1">XP Acquired</span>
-              <span className="text-2xl font-tech text-boto-500">+{displayedXp}</span>
+            <div className="bg-black/30 border border-white/10 p-4 rounded-lg flex flex-col items-center">
+              <span className="text-[10px] font-mono text-slate-300 uppercase mb-1">XP</span>
+              <span className={`text-2xl font-tech ${themeStyles.accent}`}>+{displayedXp}</span>
             </div>
-            <div className="bg-slate-900 border border-slate-700 p-4 rounded-lg flex flex-col items-center">
-               <span className="text-[10px] font-mono text-slate-500 uppercase mb-1">Streak</span>
-               <div className="flex items-center text-orange-500">
+            <div className="bg-black/30 border border-white/10 p-4 rounded-lg flex flex-col items-center">
+               <span className="text-[10px] font-mono text-slate-300 uppercase mb-1">Streak</span>
+               <div className={`flex items-center ${themeStyles.accent}`}>
                   <span className="text-2xl font-tech">{user.streak}</span>
                   <span className="text-lg ml-1">⚡</span>
                </div>
             </div>
           </div>
 
-          <Button fullWidth size="lg" onClick={() => { completeLesson(lesson.id, lesson.xpReward); navigate('/'); }} className="neon-glow">
-            CONFIRM UPLOAD
+          <Button fullWidth size="lg" onClick={() => { completeLesson(lesson.id, lesson.xpReward); navigate('/'); }} className={`${themeStyles.buttonPrimary} neon-glow`}>
+            VOLTAR AO PORTO
           </Button>
         </motion.div>
       </div>
@@ -135,20 +183,27 @@ const LessonPage = () => {
 
   return (
     <div className="h-screen flex flex-col bg-background text-slate-100 overflow-hidden relative">
+      {theme === 'cyber' && (
+        <div className="porto-wave-container">
+          <div className="porto-wave"></div>
+        </div>
+      )}
+      {theme === 'sport' && <div className="absolute inset-0 sport-stripe opacity-40"></div>}
+      {theme === 'game' && <div className="absolute inset-0 pixel-scanlines opacity-40"></div>}
       
       {/* Header */}
-      <div className="px-4 py-4 flex items-center justify-between border-b border-slate-800 bg-surface/50 backdrop-blur-sm z-10">
-        <button onClick={() => navigate('/')} className="text-slate-400 hover:text-white transition-colors">
+      <div className={`px-4 py-4 flex items-center justify-between z-10 ${theme === 'cyber' ? 'porto-panel border-b-4 border-[#5D4037]' : theme === 'game' ? 'bg-[#1b0f33] border-b-4 border-[#ff4081]' : 'bg-[#0f1b3a] border-b-4 border-[#ff6347]'}`}>
+        <button onClick={() => navigate('/')} className={`${theme === 'cyber' ? 'text-[#3E2723] hover:text-[#BF360C]' : 'text-white/70 hover:text-white'} transition-colors`}>
           <X className="w-6 h-6" />
         </button>
-        <div className="flex-1 mx-6 h-1 bg-slate-800 rounded-full overflow-hidden">
+        <div className="flex-1 mx-6 h-1 bg-black/30 rounded-full overflow-hidden">
           <motion.div 
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            className="h-full bg-boto-500 shadow-[0_0_10px_#06b6d4]"
+            className={`h-full ${themeStyles.progress} shadow-[0_0_10px_rgba(0,0,0,0.3)]`}
           />
         </div>
-        <div className="flex items-center text-tech-pink font-bold font-mono">
+        <div className={`flex items-center font-bold font-mono ${themeStyles.heart}`}>
           <Heart className="w-5 h-5 fill-current mr-2" />
           {user.hearts}
         </div>
@@ -245,27 +300,27 @@ const LessonPage = () => {
       </div>
 
       {/* Footer / Feedback Console */}
-      <div className={`fixed bottom-0 left-0 right-0 p-4 border-t transition-colors duration-300 z-20 ${
-          status === 'correct' ? 'bg-tech-green/10 border-tech-green' : 
-          status === 'wrong' ? 'bg-tech-pink/10 border-tech-pink' : 
-          'bg-surface border-slate-800'
+        <div className={`fixed bottom-0 left-0 right-0 p-4 transition-colors duration-300 z-20 ${
+          status === 'correct' ? themeStyles.footerSuccess : 
+          status === 'wrong' ? themeStyles.footerDanger : 
+          themeStyles.footer
       }`}>
           <div className="max-w-md mx-auto flex flex-col space-y-4">
               {status === 'correct' && (
                   <motion.div 
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    className="flex items-center text-tech-green font-mono font-bold"
+                    className="flex items-center font-mono font-bold"
                   >
                       <Terminal className="w-5 h-5 mr-2" />
-                      {'>'} EXECUTION SUCCESSFUL
+                      {'>'} RESPOSTA PERFEITA
                   </motion.div>
               )}
               {status === 'wrong' && (
                   <motion.div 
                     initial={{ x: 10 }}
                     animate={{ x: [0, -10, 10, 0] }}
-                    className="flex flex-col text-tech-pink mb-2 font-mono"
+                    className="flex flex-col mb-2 font-mono"
                   >
                       <div className="font-bold flex items-center mb-1">
                         <span className="mr-2">⚠</span> RUNTIME ERROR
@@ -280,9 +335,9 @@ const LessonPage = () => {
                 variant={status === 'idle' ? 'primary' : status === 'correct' ? 'success' : 'danger'}
                 onClick={status === 'idle' ? handleCheck : status === 'correct' ? handleContinue : () => setStatus('idle')}
                 disabled={currentStep.type === LessonType.QUIZ && !selectedOption && status === 'idle'}
-                className={status === 'correct' ? 'bg-tech-green border-green-700' : status === 'wrong' ? 'bg-tech-pink border-red-900' : 'bg-boto-600 border-boto-800'}
+                className={status === 'correct' ? themeStyles.buttonSuccess : status === 'wrong' ? themeStyles.buttonDanger : themeStyles.buttonPrimary}
               >
-                 {status === 'idle' ? 'RUN CODE' : status === 'correct' ? 'NEXT MODULE' : 'DEBUG'}
+                 {status === 'idle' ? 'EXECUTAR' : status === 'correct' ? 'SEGUIR' : 'AJUSTAR'}
               </Button>
           </div>
       </div>
